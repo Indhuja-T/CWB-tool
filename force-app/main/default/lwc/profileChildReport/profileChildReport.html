@@ -1,0 +1,41 @@
+<template>
+  
+    <div class="slds-clearfix ">
+        <lightning-card title="Profile" variant="narrow" icon-name="utility:people" style="color:steelblue;font-style:normal;font-size:medium" >
+            <lightning-button-icon  icon-name="utility:question" slot="actions"  class="slds-float_right slds-button_icon-inverse" size="x-small"></lightning-button-icon>
+           
+            <template iterator:acc={lstAccounts}>
+                <div class="slds-box"  key={acc.value.Id}>
+                    <lightning-button-icon if:false={acc.last} icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+                    <lightning-button-icon if:true={acc.first} icon-name="action:filter" class="slds-float_right"></lightning-button-icon>
+                    <h1 if:false={acc.last}> {acc.value.Title}</h1>
+                    <p if:false={acc.last}>{acc.value.Description}</p>  
+                    <div if:true={acc.last}>
+                        <h1>{acc.value.Title}</h1>                                                                                                                                          
+                          <p>{acc.value.Description}</p>
+                          <lightning-button label="Download Current Org Ols" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;"></lightning-button>
+                          <lightning-button label="Download Current Org Fls" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;" ></lightning-button>
+                     </div>
+                   
+                    
+                </div>
+        
+            </template>
+            <div >
+               
+                <c-single-tab-download-child-report>
+                <span slot="title"><h1>Profile Comparison</h1></span>
+                <span slot="description">Compare profiles based on Page Layouts, Custom permissions, Class access, Application visibilities, Field permissions, Object permissions, Page access, RecordType visibilities, Tab visibilities, and User permissions.</span>
+              <slot>
+                <lightning-radio-group 
+                label="Radio Group"
+                options={options}
+                value={value}
+                type="radio"></lightning-radio-group>
+              </slot>
+            </c-single-tab-download-child-report>
+        </div>  
+        </lightning-card>
+     </div>
+  
+</template>

@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Workflow" icon-name="utility:flow" size="small" style="color:steelblue"></lightning-card>
+    <c-single-tab-child-report>
+        <span slot="title"><h1>Workflow Full Detail</h1></span>
+        <span slot="description">Explore fine details about Workflows like Workflow Rule, Workflow Rule Criteria, and Workflow Action(s) etc.</span>
+    </c-single-tab-child-report>
+    <div class="slds-box">
+    <h1>Modified Details</h1><br>
+    <lightning-button label="Workflow" title="Download action" icon-name="utility:download" size="xx-small" class="slds-icon-left" style="font-size: small;"></lightning-button><br><br>
+    <lightning-button-icon icon-name="action:filter" size="xx-medium"></lightning-button-icon>
+    <lightning-button label="Rule" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;" ></lightning-button>
+    <lightning-button label="Alert" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;"></lightning-button>
+    <lightning-button label="Field Update" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;"></lightning-button>
+    <lightning-button label="Outbound Message" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;"></lightning-button>
+    </div>
+</template>

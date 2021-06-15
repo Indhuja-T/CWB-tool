@@ -1,0 +1,92 @@
+<template>
+  
+    <div class="slds-clearfix ">
+        <lightning-card title="Objects" variant="narrow" icon-name="standard:shipment" style="color:steelblue;font-style:normal;font-size:medium" >
+            <lightning-button-icon  icon-name="utility:question" slot="actions"  class="slds-float_right slds-button_icon-inverse" size="x-small"></lightning-button-icon>
+            <!--div style="background-color: grey;" >
+                <lightning-button-icon  icon-name="utility:question" class="slds-float_right slds-button_icon-inverse" size="x-small"></lightning-button-icon>
+            <h3 slot="title" class="slds-card__header-title slds-media__body" >
+            <lightning-icon icon-name="standard:shipment" size="small" style="background-color: rgba(128, 128, 128, 0.425);"></lightning-icon>
+           <Strong class = "slds-m-left_x-small">Objects</Strong>
+            </h3>
+            </div-->
+            <template iterator:acc={lstAccounts}>
+                <div class="slds-box"  key={acc.value.Id}>
+                    <lightning-button-icon if:false={acc.last} icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+                    <lightning-button-icon if:true={acc.first} icon-name="action:filter" class="slds-float_right"></lightning-button-icon>
+                    <h1 if:false={acc.last}> {acc.value.Title}</h1>
+                    <p if:false={acc.last}>{acc.value.Description}</p>  
+                    <div if:true={acc.last}>
+                          <h1>{acc.value.Title}</h1>
+                          <p>{acc.value.Description}</p>
+                          <lightning-button label="All Fields Detail Including Installed Packages" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;"></lightning-button>
+                          <lightning-button label="Only Current Org Field Details" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;" ></lightning-button>
+                          <lightning-button label="Only Current Org Validation Rule" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;"></lightning-button>
+                    </div>
+                   
+                    
+                </div>
+            
+            <!--div  class="slds-box">
+                <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+            <lightning-button-icon icon-name="action:filter" class="slds-float_right"></lightning-button-icon>    
+            <h1>acc.value</h1>
+            <p>Click here to get the basic details</p>
+           
+            </div-->
+            </template>
+            <!--div class="slds-box">
+            <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+            <h1>Full Details</h1>
+            <p>Click here to download full details</p>
+            </div>   
+            
+            <div class="slds-box">
+                <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+                <h1>Modified Details changed</h1>
+                <p>Click here to download modified details</p>
+                </div--> 
+        </lightning-card>
+     </div>
+  
+</template> 
+<!--<template>
+    <div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none" >
+        <lightning-layout  title="Objects" icon-name="standard:shipment">
+            <lightning-layout-item padding="around-small" size="12" small-device-size="6" medium-device-size="4" large-device-size="3">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">Basic Details</div>
+                <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+        <lightning-button-icon icon-name="action:filter" class="slds-float_right"></lightning-button-icon>
+            </lightning-layout-item>
+            </lightning-layout>
+            <lightning-layout>
+            <lightning-layout-item padding="around-small" size="12" small-device-size="6" medium-device-size="4" large-device-size="3">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">Full Details</div>
+                <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template> -->
+<!--<template>
+    <lightning-icon icon-name="standard:shipment"></lightning-icon>
+    <div class="slds-box" title="Objects">
+        <div class="firstbox">
+            <h2>Basic Details</h2>
+            <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+            <lightning-button-icon icon-name="action:filter" class="slds-float_right"></lightning-button-icon>
+        </div>
+        <div class="slds-box secondbox">
+            <h2>Full Details</h2>
+            <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+
+        </div>
+        <div class="thirdbox">
+            <h2>Modified Deails</h2>
+            <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+
+        </div>
+    <div>
+
+    </div>
+</div>
+</template> -->

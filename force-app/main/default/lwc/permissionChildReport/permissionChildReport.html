@@ -1,0 +1,16 @@
+<template>
+  
+    <div class="slds-clearfix ">
+        <lightning-card title="Objects" variant="narrow" icon-name="standard:shipment" style="color:steelblue;font-style:normal;font-size:medium" >
+            <lightning-button-icon  icon-name="utility:question" slot="actions"  class="slds-float_right slds-button_icon-inverse" size="x-small"></lightning-button-icon>
+            <template iterator:acc={lstAccounts}>
+                <div class="slds-box"  key={acc.value.Id}>
+                    <lightning-button-icon icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+                    <lightning-button-icon if:true={acc.first} icon-name="action:filter" class="slds-float_right"></lightning-button-icon>
+                    <h1> {acc.value.Title}</h1>
+                    <p>{acc.value.Description}</p>
+                </div>
+            </template>
+        </lightning-card>
+    </div>
+</template>
