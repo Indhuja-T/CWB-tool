@@ -1,0 +1,9 @@
+<template>
+   
+    <div if:true={type}>
+        <lightning-input type={tp} name={dt.Question_ID__c}  val={answers} onchange={changeHandler}  onprogressvaluechange={hanldeProgressValueChange}></lightning-input>
+    </div>
+    <div if:false={type}>
+        <lightning-combobox placeholder="Choose Status" val={dt.Question_ID__r.Picklist_Values__c}  name={dt.Question_ID__c} value={answers} onchange={changeHandler} options={valueOption}></lightning-combobox>    
+    </div>
+</template>

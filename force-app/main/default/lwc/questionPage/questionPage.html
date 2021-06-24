@@ -1,0 +1,63 @@
+<template >
+    <template if:true={showCard}>
+    <lightning-input field-name="Survey ID" type="text" label="Survey ID" onchange={changeHandler} ></lightning-input><br><br>
+    <lightning-input field-name="User ID" type="text" label="User ID" onchange={userChangeHandler} ></lightning-input><br><br>
+
+    <lightning-button label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br><br>
+</template>
+<template if:true={showForm}>
+    <div class="slds-box">
+      
+        
+        <lightning-card title="Questions">
+            <ul>
+                <template if:true={responseReceived}> 
+                <template for:each={lstQuestions} for:item="que" for:index="indexvar">
+                    <li key={que.Question_ID__c}>
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-tile >
+                               
+                                  <!-- <lightning-formatted-rich-text value={que.Question_ID__r.Question_Text__c}></lightning-formatted-rich-text>
+                                  <lightning-input if:false={que.Question_ID__r.Picklist_Values__c}  name={que.Question_ID__c} data-id={que.Question_ID__r.Response_Type__c} val={answers} onchange={valueChangeHandler}></lightning-input>
+                                  <c-child-component if:true={que.Question_ID__r.Picklist_Values__c} dt={que} name={que.Question_ID__c} val={que.Question_ID__r.Picklist_Values__c}  onprogressvaluechange={hanldeProgressValueChange}> </c-child-component>  -->
+                                  <lightning-formatted-rich-text value={que.Question_ID__r.Question_Text__c}></lightning-formatted-rich-text>
+                                  <c-child-input-type-component name={que.Question_ID__c} dt={que} val={que.Question_ID__r.Picklist_Values__c} onprogressvaluechange={hanldeProgressValueChange}></c-child-input-type-component>
+                                    
+                                
+                            </lightning-tile>
+                        </div>
+                    </li>
+                </template>
+                <lightning-button label="SAVE"  type="submit" variant="brand" onclick={saveHandler}></lightning-button>
+                </template>
+            </ul>
+        </lightning-card>
+</div>
+</template>
+<template if:true={showTable}>
+<!-- <template for:each={lstQueResponse} for:item="qr">
+    <tr key={qr.Id}>                
+        <td key={qr.Id}>                                
+            {qr.Survey_ID__r.Survey_Name__c}
+        </td>
+        <td key={qr.Id}>
+            {qr.User_ID__r.Name}
+        </td>
+        <td key={qr.Id}>
+            {qr.Question_ID__r.Question_Text__c}
+        </td>
+        <td key={qr.Id}>
+            {qr.Response__c}
+        </td> 
+    </tr>                                                                     
+</template> -->
+<lightning-datatable
+                    key-field="Id"
+                    data={lstQueResponse}
+                    columns={columns}
+                    hide-checkbox-column="true"
+                    show-row-number-column="true"
+                    >
+                </lightning-datatable>
+</template>
+</template>
