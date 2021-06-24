@@ -20,32 +20,43 @@ export default class ChildInputTypeComponent extends LightningElement {
                         return { label: el, value: el }
                       });}
     }
-    get type(){
-        console.log(this.dt.Question_ID__r.Response_Type__c);
-        if(this.dt.Question_ID__r.Response_Type__c === "Number"){
-            this.tp="number";
-            return true;
-        }
-        if(this.dt.Question_ID__r.Response_Type__c === "Rich Text Area"){
-            this.tp="text";
+    get text(){
+        if(this.dt.Question_ID__r.Response_Type__c === "Rich Text Area"){    
             return true;
         }
         return false;
     }
-    // hanldeProgressValueChange(event) {
-    //     // this.answers = event.target.name;
-    //     // this.answers[event.target.name] = event.detail;
-    //     this.answers[event.target.name]=event.detail;
-    //     console.log(event.target.name + ' now is set to ' + event.detail);
-    //   }
-    //   valueChangeHandler(event){
-    //     this.answers[event.target.name] = event.target.value; 
-    //     console.log(event.target.name + ' now is set to ' + event.target.value);
-    //     const selectedEvent = new CustomEvent("progressvaluechange", {
-    //         detail: this.answers[event.target.name],
-            
-    //       });
-    //     }
+    get number(){
+        if(this.dt.Question_ID__r.Response_Type__c === "Number"){  
+            return true;
+        }
+        return false;
+    }
+    get picklist(){
+        if(this.dt.Question_ID__r.Response_Type__c === "Picklist"){  
+            return true;
+        }
+        return false;
+    }
+    get tel(){
+        if(this.dt.Question_ID__r.Response_Type__c === "Phone"){  
+            return true;
+        }
+        return false;
+    }
+    get date(){
+        if(this.dt.Question_ID__r.Response_Type__c === "Date"){  
+            return true;
+        }
+        return false;
+    }
+    get email(){
+        if(this.dt.Question_ID__r.Response_Type__c === "Email"){  
+            return true;
+        }
+        return false;
+    }
+   
     changeHandler(event){
         this.answers[event.target.name] = event.target.value; 
     console.log(event.target.name + ' now is set to ' + event.target.value);
@@ -53,8 +64,6 @@ export default class ChildInputTypeComponent extends LightningElement {
             detail: this.answers[event.target.name],
             value: event.target.name
           });
-      
-          // Dispatches the event.
           this.dispatchEvent(selectedEvent);
     }
 }
