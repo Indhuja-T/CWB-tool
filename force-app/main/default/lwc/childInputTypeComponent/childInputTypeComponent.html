@@ -1,7 +1,6 @@
 <template>
-   
     <div if:true={text}>
-        <lightning-input type="text"name={dt.Question_ID__c}  val={answers} onchange={changeHandler} ></lightning-input>
+        <lightning-input type="text" name={dt.Question_ID__c}  val={answers} onchange={changeHandler} ></lightning-input>
     </div>
     <div if:true={picklist}>
         <lightning-combobox placeholder="Choose Status" val={dt.Question_ID__r.Picklist_Values__c}  name={dt.Question_ID__c} value={answers} onchange={changeHandler} options={valueOption}></lightning-combobox>    
