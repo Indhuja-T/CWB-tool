@@ -1,5 +1,5 @@
-import { LightningElement } from 'lwc';
-
+import { LightningElement, track,wire } from 'lwc';
+import getprofiles from '@salesforce/apex/getinfo.getprofiles';
 export default class ObjectChildReport extends LightningElement {
 lstAccounts =[{
     Id:1,
@@ -42,5 +42,35 @@ Description:'Deep dive into every other aspect of Object layout meta data detail
     Description:'Explore who created or modified custom fields, with dates & time.'
 },
 
-]
+];
+
+showModal() {
+    this.openModal = true;
+}
+closeModal() {
+    this.openModal = false;
+}
+
+@track openModal = false;
+openprofile=false;
+@track val='abc';
+picklistValues;
+error;
+@wire(getprofiles) 
+wiredprofiles({data, error}){
+if(data){
+this.picklistValues=data.values;
+console.log('data', data.values);
+this.error=undefined;
+}
+if(error)
+{
+    this.picklistValues=undefined;
+    this.error=error;   
+}
+}
+handleValueChange(event)
+{
+    console.log(JSON.stringify(event.detail));
+}
 }
