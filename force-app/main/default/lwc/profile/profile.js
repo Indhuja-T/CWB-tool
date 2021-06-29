@@ -1,9 +1,11 @@
-import { LightningElement,track,wire} from 'lwc';
+import { LightningElement, track,wire } from 'lwc';
 import getprofiles from '@salesforce/apex/getinfo.getprofiles';
 import GetObjectProfilePermission from '@salesforce/apex/RetrieveData.GetObjectProfilePermission';
 
-export default class ObjectChildReport extends LightningElement {
+export default class Profile extends LightningElement {
 
+selectedProfiles=[];
+selectedObjects=[];
 
 lstAccounts =[{
     Id:1,
@@ -38,8 +40,15 @@ Description:'Explore who created or modified Profile.'
 },
 
 ]
-@track openModal = false;
+
 value = '';
+
+get opt() {
+    return [
+        { label: 'In this Salesforce Org', value: 'option1' },
+        { label: 'In other Salesforce Org', value: 'option2' },
+    ];
+}
 showModal() {
     this.openModal = true;
 }
@@ -47,12 +56,26 @@ closeModal() {
     this.openModal = false;
 }
 
-Download(event){
-    console.log("here");
+ProfileUpdate(event){
+    //console.log("event h",event.detail);
+    this.selectedProfiles = event.detail;
+    console.log("CHanges in PROFILE parent",this.selectedProfiles);
+}
+objectUpdate(event){
+    this.selectedObjects = event.detail;
+    console.log("CHanges in Object parent",this.selectedObjects);
+}
+
+@track openModal = false;
+
+Download(){
+    console.log("Download here");
+    console.log("selectedProfiles",this.selectedProfiles);
+    console.log("selectedObjects",this.selectedObjects);
     
-    var Profile = ["System Administrator","Marketing User","Standard User"];
-    var objects = ["Account","Contact"];         
-    GetObjectProfilePermission( {objects : objects, Profiles : Profile}).then(
+    // var Profile = ["System Administrator","Marketing User","Standard User"];
+    // var objects = ["Account","Contact"];         
+    GetObjectProfilePermission( {objects : this.selectedObjects, Profiles : this.selectedProfiles}).then(
         result => {
             console.log("here2");
             console.log(result);
@@ -74,13 +97,12 @@ Download(event){
         }
     ).catch(
         error => {
-            console.log('error'+error.message);
+            console.log('error '+error.message);
         }
     );
 }
 
-/*@track openModal = false;
-openprofile=false;
+/*openprofile=false;
 @track val='abc';
 picklistValues;
 error;
@@ -100,12 +122,23 @@ if(error)
 handleValueChange(event)
 {
     console.log(JSON.stringify(event.detail));
+}
 }*/
+}
 
-get options() {
-    return [
-        { label: 'In this Salesforce Org', value: 'option1' },
-        { label: 'In other Salesforce Org', value: 'option2' },
-    ];
+/*get opt() {
+    var returnOptions = [];
+    if(this.profilelist.data){
+        this.profilelist.data.forEach(ele =>{
+            returnOptions.push({label:ele.Name , value:ele.Name});
+        }); 
+    }
+    console.log(JSON.stringify(returnOptions));
+    return returnOptions;
 }
+handleChange(event) {
+    this.val = event.detail.val;
 }
+get hasResults() {
+    return (this.profilelist.data.length > 0);
+ }*/
