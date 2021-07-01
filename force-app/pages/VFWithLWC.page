@@ -6,6 +6,7 @@
         $Lightning.use("c:AppForVF",function(){
             $Lightning.createComponent("c:questionPage",{},"lwccontainer",
                                       function(cmp){
+                                        console.log("LWC component was created");
                 });    
         });
     </script>

@@ -2,6 +2,7 @@ import { LightningElement, track, api,wire} from 'lwc';
 import relatedQuestions from '@salesforce/apex/surveyQuestion.relatedQuestions'
 import saveResponse from '@salesforce/apex/surveyQuestion.saveResponse'
 import reportDB from '@salesforce/apex/surveyQuestion.reportDB'
+import surveyDetails from '@salesforce/apex/surveyQuestion.surveyDetails'
 
 const COLS = [
     { label: 'Survey Name', fieldName: 'Survey_Name__c'},
@@ -74,16 +75,26 @@ export default class QuestionPage extends LightningElement {
     //     console.log(event.target.name + ' now is set to ' + event.target.value);
     //     }
     
-    saveHandler(){
+    async saveHandler(){
       //  console.log(size(this.lstQuestion));
       this.showForm = false;
       this.showTable = true;
+     
+    await surveyDetails({Uid:this.uid,Sid:this.surveyid}).then(result=>{
+         this.SurrId=result;
+         console.log(this.SurrId);
+     }).catch(error => {
+        console.log('error'+error.message);
+    });
     
      let i=0;
         for(i=0;i<this.n;i++){
             this.ID=this.lstQuestions[i].Question_ID__c;
-          if(this.answers[this.ID]){
-        saveResponse({Uid:this.uid,Sid:this.surveyid,Qid:this.lstQuestions[i].Question_ID__c,Rval:this.answers[this.ID]});}}
+          if(this.answers[this.ID] ){
+            // (async function(){
+            //     await asyncCall();
+            // })();
+        saveResponse({SrId:this.SurrId,Qid:this.lstQuestions[i].Question_ID__c,Rval:this.answers[this.ID]});}}
     reportDB({Sid:this.surveyid}).then(result =>{
         // 
         console.log(JSON.stringify(result));
@@ -91,25 +102,20 @@ export default class QuestionPage extends LightningElement {
 
         result.forEach((row) => {
 
-            /* 
-            * Creating the an empty object
-            * To reslove "TypeError: 'set' on proxy: trap returned falsish for property"
-            */
-
             let rowData = {};
 
             rowData.Response__c= row.Response__c;
            
 
-            // Account related data
-            if (row.Survey_ID__r) {
-                rowData.Survey_Name__c = row.Survey_ID__r.Survey_Name__c;
+            
+            if (row.Survey_Response__r.Survey__r.Survey_Name__c) {
+                rowData.Survey_Name__c = row.Survey_Response__r.Survey__r.Survey_Name__c;
                
             }
 
-            // Owner releated data
-            if (row.User_ID__r) {
-                rowData.Name = row.User_ID__r.Name;
+           
+            if (row.Survey_Response__r.User__r.Name) {
+                rowData.Name = row.Survey_Response__r.User__r.Name;
             }
             if (row.Question_ID__r) {
                 rowData.Question_Text__c = row.Question_ID__r.Question_Text__c;
