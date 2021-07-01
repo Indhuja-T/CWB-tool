@@ -96,7 +96,7 @@ public class Email_Class {
             List <string> Mail = new List<string> ();
             Mail.add(u.Email);
              email.setToAddresses(Mail);
-            url = url + '?UserID=' + u.ID + '?SurveyCode=' + selectedSurveyname ;
+            url = url + '?Id=' + selectedSurveyname + '?' + u.ID   ;
         
         email.setSubject('Test Mail');
         
