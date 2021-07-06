@@ -3,13 +3,7 @@
     <div class="slds-clearfix ">
         <lightning-card title="Objects" variant="narrow" icon-name="standard:shipment" style="color:steelblue;font-style:normal;font-size:medium" >
             <lightning-button-icon  icon-name="utility:question" slot="actions"  class="slds-float_right slds-button_icon-inverse" size="x-small"></lightning-button-icon>
-            <!--div style="background-color: grey;" >
-                <lightning-button-icon  icon-name="utility:question" class="slds-float_right slds-button_icon-inverse" size="x-small"></lightning-button-icon>
-            <h3 slot="title" class="slds-card__header-title slds-media__body" >
-            <lightning-icon icon-name="standard:shipment" size="small" style="background-color: rgba(128, 128, 128, 0.425);"></lightning-icon>
-           <Strong class = "slds-m-left_x-small">Objects</Strong>
-            </h3>
-            </div-->
+            
             <template iterator:acc={lstAccounts}>
                 <div class="slds-box"  key={acc.value.Id}>
                     <lightning-button-icon if:false={acc.last} icon-name="action:download" class="slds-float_right"></lightning-button-icon>
