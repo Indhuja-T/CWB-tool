@@ -91,4 +91,3 @@ handleChange(event) {
 get hasResults() {
     return (this.profilelist.data.length > 0);
  }*/
-
