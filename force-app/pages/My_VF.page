@@ -5,7 +5,7 @@
     <apex:form >
          <apex:outputLabel value="Profile Name " for="To"/>
           <apex:selectList size="1" value="{!selectedProfilename}" label="Profile Name:"> 
-        <apex:selectOptions value="{!selectedaccnamefields}"/>  
+        <apex:selectOptions value="{!selectedemail}"/>  
         </apex:selectList><br/>
          <apex:outputLabel value="Survery ID " for="CC"/>
         <apex:selectList size="1" value="{!selectedSurveyname}" label="Survey name:"> 

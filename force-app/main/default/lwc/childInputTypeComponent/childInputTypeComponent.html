@@ -1,21 +1,21 @@
 <template>
     <div if:true={text}>
-        <lightning-input type="text" name={dt.Question_ID__c}  val={answers} onchange={changeHandler} ></lightning-input>
+        <lightning-input type="text" name={dt.Question_ID__c} value={answer}  val={answers} onchange={changeHandler} ></lightning-input>
     </div>
     <div if:true={picklist}>
-        <lightning-combobox placeholder="Choose Status" val={dt.Question_ID__r.Picklist_Values__c}  name={dt.Question_ID__c} value={answers} onchange={changeHandler} options={valueOption}></lightning-combobox>    
+        <lightning-combobox placeholder="Choose Status" val={dt.Question_ID__r.Picklist_Values__c} value={answer} name={dt.Question_ID__c}  onchange={changeHandler} options={valueOption}></lightning-combobox>    
     </div>
     <div if:true={date}>
-        <lightning-input type="date" name={dt.Question_ID__c}  val={answers} onchange={changeHandler} ></lightning-input>
+        <lightning-input type="date" name={dt.Question_ID__c}  val={answers} value={answer} onchange={changeHandler} ></lightning-input>
     </div>
     <div if:true={email}>
         <lightning-input type="email" name={dt.Question_ID__c}  minlength="5"
-        message-when-too-short="Your email address must be more 5 characters."  val={answers} onchange={changeHandler} ></lightning-input>
+        message-when-too-short="Your email address must be more 5 characters." value={answer}  val={answers} onchange={changeHandler} ></lightning-input>
     </div>
     <div if:true={number}>
-        <lightning-input type="number" name={dt.Question_ID__c}  val={answers} onchange={changeHandler} ></lightning-input>
+        <lightning-input type="number" name={dt.Question_ID__c} value={answer} val={answers} onchange={changeHandler} ></lightning-input>
     </div>
     <div if:true={tel}>
-        <lightning-input type="tel"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name={dt.Question_ID__c}  val={answers} onchange={changeHandler} ></lightning-input>
+        <lightning-input type="tel"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={answer} name={dt.Question_ID__c}  val={answers} onchange={changeHandler} ></lightning-input>
     </div>
 </template>
