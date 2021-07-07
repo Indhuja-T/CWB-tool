@@ -8,7 +8,7 @@ Public List<Selectoption> getselectedprofile(){
 List<Selectoption> profilesel = new List<selectoption>();
 profilesel.add(new selectOption('','- None -'));
 for(Profile pro :[SELECT Profile.Id, Profile.name FROM Profile]){
-    profilesel.add(new selectoption(pro.Id,pro.name));
+profilesel.add(new selectoption(pro.Id,pro.name));
 }
 return profilesel; 
 }
@@ -19,7 +19,7 @@ Public List<Selectoption> getselectedsurveyfields(){
 List<Selectoption> surveyid = new List<selectoption>();
 surveyid.add(new selectOption('', '- None -'));
 for(Survey__c svy :[SELECT Survey_Code__c, Survey__c.Name FROM Survey__c]){
-    surveyid.add(new selectoption(svy.Survey_Code__c,svy.name));
+surveyid.add(new selectoption(svy.Survey_Code__c,svy.name));
 }
 return surveyid; 
 }
@@ -35,8 +35,8 @@ String emailBody = tempID.HTMLValue;
 
 
 
-    emailBody = emailBody.replace('Survey_ID', selectedSurveyname );
-    
+emailBody = emailBody.replace('Survey_ID', selectedSurveyname );
+
 
 
 return emailBody;
@@ -76,18 +76,18 @@ List <string> Mailid = new List<string> ();
 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();  
 for(User u: Requser )
 {
-    List <string> Mail = new List<string> ();
-    Mail.add(u.Email);
-    email.setToAddresses(Mail);
-    String url = System.Label.My_Survey_Url;
-    
-    url = url + '?Id=' + selectedSurveyname + '?' + u.User_Code__c   ;
-    
-    email.setSubject('Test Mail');
-    
-    email.setHtmlBody('Hi ' + u.name + ', <br/><br/>We would like you to fill out a survey. <br/>Please click <a href=' + url + '>here</a> and fill out the survey. <br/>Thank you for your time<br/>');
-    
-    Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
+List <string> Mail = new List<string> ();
+Mail.add(u.Email);
+email.setToAddresses(Mail);
+String url = System.Label.My_Survey_Url;
+
+url = url + '?Id=' + selectedSurveyname + '?' + u.User_Code__c   ;
+
+email.setSubject('Test Mail');
+
+email.setHtmlBody('Hi ' + u.name + ', <br/><br/>We would like you to fill out a survey. <br/>Please click <a href=' + url + '>here</a> and fill out the survey. <br/>Thank you for your time<br/>');
+
+Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
 }
 
 
