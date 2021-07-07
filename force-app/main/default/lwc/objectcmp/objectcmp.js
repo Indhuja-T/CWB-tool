@@ -6,7 +6,11 @@ valueText = "Select Event";
 @wire(getobj)
 objectlist;
 
+
+
+
 objectsSelected=[];
+
 get eventOptions() {
     var returnOptions = [];
     if(this.objectlist.data){
@@ -14,6 +18,17 @@ get eventOptions() {
             returnOptions.push({label:ele.SobjectType , value:ele.SobjectType});
         }); 
     }
+
+    console.log(JSON.stringify(returnOptions));
+    return returnOptions;
+}
+@track allValues = [];
+
+handleChange(event){
+    if(!this.allValues.includes(event.target.value)){
+        this.allValues.push(event.target.value);
+        this.valueText="Object Selected";
+=======
    // console.log(JSON.stringify(returnOptions));
     return returnOptions;
 }
@@ -33,6 +48,7 @@ handleChange(event){
         
         const selectedEvent = new CustomEvent('objectupdate', { detail: this.objectsSelected });
         this.dispatchEvent(selectedEvent); 
+
     }
 }
 handleRemove(event){
@@ -47,4 +63,7 @@ handleRemove(event){
     return (this.objectlist.data.length > 0);
  }
  
+
 }
+}
+

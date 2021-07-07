@@ -5,7 +5,11 @@
          
       <template iterator:acc={lstAccounts}>
         <div class="slds-box"  key={acc.value.Id}>
+
+          <lightning-button-icon if:false={acc.last} icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+
           <lightning-button-icon if:false={acc.last} icon-name="action:download" class="slds-float_right" onclick={Download}></lightning-button-icon>
+
           <lightning-button-icon if:true={acc.first} icon-name="action:filter" onclick={showModal} class="slds-float_right"></lightning-button-icon>
              
           <h1 if:false={acc.last}> {acc.value.Title}</h1>
@@ -35,8 +39,13 @@
                                   </span>
                                 </label>
 
+
+                                <c-eventlist></c-eventlist>
+                                <c-objectcmp></c-objectcmp>
+
                                 <c-eventlist onprofileupdate={ProfileUpdate}></c-eventlist>
                                 <c-objectcmp onobjectupdate={objectUpdate}></c-objectcmp>
+
                                 
                             </div>
                             </div>  

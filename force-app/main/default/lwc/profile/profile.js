@@ -1,11 +1,15 @@
 import { LightningElement, track,wire } from 'lwc';
 import getprofiles from '@salesforce/apex/getinfo.getprofiles';
+
+export default class Profile extends LightningElement {
+=======
 import GetObjectProfilePermission from '@salesforce/apex/RetrieveData.GetObjectProfilePermission';
 
 export default class Profile extends LightningElement {
 
 selectedProfiles=[];
 selectedObjects=[];
+
 
 lstAccounts =[{
     Id:1,
@@ -56,6 +60,9 @@ closeModal() {
     this.openModal = false;
 }
 
+
+@track openModal = false;
+=======
 ProfileUpdate(event){
     //console.log("event h",event.detail);
     this.selectedProfiles = event.detail;
@@ -102,6 +109,7 @@ Download(){
     );
 }
 
+
 /*openprofile=false;
 @track val='abc';
 picklistValues;
@@ -141,4 +149,8 @@ handleChange(event) {
 }
 get hasResults() {
     return (this.profilelist.data.length > 0);
+
  }*/
+
+ }*/
+
