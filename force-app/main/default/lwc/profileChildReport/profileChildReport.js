@@ -1,6 +1,16 @@
+
 import { LightningElement, track,wire } from 'lwc';
 import getprofiles from '@salesforce/apex/getinfo.getprofiles';
 export default class Profile extends LightningElement {
+
+import { LightningElement,track,wire} from 'lwc';
+import getprofiles from '@salesforce/apex/getinfo.getprofiles';
+import GetObjectProfilePermission from '@salesforce/apex/RetrieveData.GetObjectProfilePermission';
+
+export default class ObjectChildReport extends LightningElement {
+
+
+
 lstAccounts =[{
     Id:1,
     Title:'Basic Profile Details',
@@ -34,8 +44,69 @@ Description:'Explore who created or modified Profile.'
 },
 
 ]
-
+@track openModal = false;
 value = '';
+showModal() {
+    this.openModal = true;
+}
+closeModal() {
+    this.openModal = false;
+}
+
+Download(event){
+    console.log("here");
+    
+    var Profile = ["System Administrator","Marketing User","Standard User"];
+    var objects = ["Account","Contact"];         
+    GetObjectProfilePermission( {objects : objects, Profiles : Profile}).then(
+        result => {
+            console.log("here2");
+            console.log(result);
+            var blob = new Blob([result],{type: "application/octet-stream"});
+            if (window.navigator.msSaveOrOpenBlob){
+                window.navigator.msSaveBlob(blob, "DemoCSV.csv");
+              }
+              else {
+                var a = window.document.createElement("a");
+            
+                a.href = window.URL.createObjectURL(blob, {
+                  type: "text/csv"
+                });
+                a.download = "DemoCSV.csv";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+              }
+        }
+    ).catch(
+        error => {
+            console.log('error'+error.message);
+        }
+    );
+}
+
+/*@track openModal = false;
+openprofile=false;
+@track val='abc';
+picklistValues;
+error;
+@wire(getprofiles) 
+wiredprofiles({data, error}){
+if(data){
+this.picklistValues=data.values;
+console.log('data', data.values);
+this.error=undefined;
+}
+if(error)
+{
+    this.picklistValues=undefined;
+    this.error=error;   
+}
+}
+handleValueChange(event)
+{
+    console.log(JSON.stringify(event.detail));
+}*/
 
 get opt() {
     return [

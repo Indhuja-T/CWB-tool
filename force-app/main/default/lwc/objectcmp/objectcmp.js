@@ -7,6 +7,10 @@ valueText = "Select Event";
 objectlist;
 
 
+
+
+objectsSelected=[];
+
 get eventOptions() {
     var returnOptions = [];
     if(this.objectlist.data){
@@ -14,6 +18,7 @@ get eventOptions() {
             returnOptions.push({label:ele.SobjectType , value:ele.SobjectType});
         }); 
     }
+
     console.log(JSON.stringify(returnOptions));
     return returnOptions;
 }
@@ -23,6 +28,27 @@ handleChange(event){
     if(!this.allValues.includes(event.target.value)){
         this.allValues.push(event.target.value);
         this.valueText="Object Selected";
+=======
+   // console.log(JSON.stringify(returnOptions));
+    return returnOptions;
+}
+@track allValues = [];
+@track selvalue ;
+
+handleChange(event){
+    console.log("here");
+    
+    if(!this.allValues.includes(event.target.value)){
+        this.allValues.push(event.target.value);
+        this.valueText="Object Selected";
+        
+        this.objectsSelected.push(event.detail.value);
+        
+        console.log("NEW Array", this.objectsSelected );
+        
+        const selectedEvent = new CustomEvent('objectupdate', { detail: this.objectsSelected });
+        this.dispatchEvent(selectedEvent); 
+
     }
 }
 handleRemove(event){
@@ -37,4 +63,7 @@ handleRemove(event){
     return (this.objectlist.data.length > 0);
  }
  
+
 }
+}
+

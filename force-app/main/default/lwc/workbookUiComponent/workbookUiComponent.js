@@ -11,4 +11,8 @@ export default class WorkbookUiComponent extends LightningElement {
         this.openModal = false;
     }
     
+
 }
+
+}
+
