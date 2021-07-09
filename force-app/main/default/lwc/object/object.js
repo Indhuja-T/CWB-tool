@@ -1,12 +1,6 @@
 import { LightningElement, track,wire } from 'lwc';
 import getprofiles from '@salesforce/apex/getinfo.getprofiles';
-import GetObjectProfilePermission from '@salesforce/apex/getinfo.GetObjectProfilePermission';
-
-export default class Profile extends LightningElement {
-
-selectedProfiles=[];
-selectedObjects=[];
-
+export default class Object extends LightningElement {
 lstAccounts =[{
     Id:1,
     Title:'Basic Profile Details',
@@ -49,6 +43,7 @@ get opt() {
         { label: 'In other Salesforce Org', value: 'option2' },
     ];
 }
+@track openModal = false;
 showModal() {
     this.openModal = true;
 }
@@ -56,51 +51,6 @@ closeModal() {
     this.openModal = false;
 }
 
-ProfileUpdate(event){
-    //console.log("event h",event.detail);
-    this.selectedProfiles = event.detail;
-    console.log("CHanges in PROFILE parent",this.selectedProfiles);
-}
-objectUpdate(event){
-    this.selectedObjects = event.detail;
-    console.log("CHanges in Object parent",this.selectedObjects);
-}
-
-@track openModal = false;
-
-Download(){
-    console.log("Download here");
-    console.log("selectedProfiles",this.selectedProfiles);
-    console.log("selectedObjects",this.selectedObjects);
-    
-    // var Profile = ["System Administrator","Marketing User","Standard User"];
-    // var objects = ["Account","Contact"];         
-    GetObjectProfilePermission( {objects : this.selectedObjects, Profiles : this.selectedProfiles}).then(
-        result => {
-            console.log("here2");
-            console.log(result);
-            var blob = new Blob([result],{type: "application/octet-stream"});
-            if (window.navigator.msSaveOrOpenBlob){
-                window.navigator.msSaveBlob(blob, "DemoCSV.csv");
-              }
-              else {
-                var a = window.document.createElement("a");
-            
-                a.href = window.URL.createObjectURL(blob, {
-                  type: "text/csv"
-                });
-                a.download = "DemoCSV.csv";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-              }
-        }
-    ).catch(
-        error => {
-            console.log('error '+error.message);
-        }
-    );
-}
 
 /*openprofile=false;
 @track val='abc';

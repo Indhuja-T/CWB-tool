@@ -60,7 +60,6 @@ public class RetrieveData {
         
     }
     
-    @AuraEnabled
     public static List<ObjectPermissions> GetObjectProfilePermission(List<String> objects, List<String> Profiles){
         
         List<ObjectPermissions> Permissions = [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
