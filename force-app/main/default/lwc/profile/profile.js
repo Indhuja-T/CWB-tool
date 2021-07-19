@@ -62,6 +62,7 @@ export default class Profile extends LightningElement {
     this.selectedProfiles = event.detail;
     console.log("CHanges in PROFILE parent", this.selectedProfiles);
   }
+
   objectUpdate(event) {
     this.selectedObjects = event.detail;
     console.log("CHanges in Object parent", this.selectedObjects);
@@ -71,44 +72,42 @@ export default class Profile extends LightningElement {
 
   Download(event) {
     var key = event.currentTarget.getAttribute("data-item");
-    if (key==1){
-        // 1st column call function
-        GetObjectProfilePermission({
-            objects: this.selectedObjects,
-            Profiles: this.selectedProfiles
-          })
-            .then((result) => {
-              console.log("here2");
-              console.log(result);
-              var blob = new Blob([result], { type: "application/octet-stream" });
-              if (window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveBlob(blob, "DemoCSV.csv");
-              } else {
-                var a = window.document.createElement("a");
-      
-                a.href = window.URL.createObjectURL(blob, {
-                  type: "text/csv"
-                });
-                a.download = "DemoCSV.csv";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-              }
-            })
-            .catch((error) => {
-              console.log("error " + error.message);
+    if (key == 1) {
+      // 1st column call function
+      GetObjectProfilePermission({
+        objects: this.selectedObjects,
+        Profiles: this.selectedProfiles
+      })
+        .then((result) => {
+          console.log("here2");
+          console.log(result);
+          var blob = new Blob([result], { type: "application/octet-stream" });
+          if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, "DemoCSV.csv");
+          } else {
+            var a = window.document.createElement("a");
+
+            a.href = window.URL.createObjectURL(blob, {
+              type: "text/csv"
             });
+            a.download = "DemoCSV.csv";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+        })
+        .catch((error) => {
+          console.log("error " + error.message);
+        });
+    } else if (key == 2) {
+      //call function
     }
-    else if (key==2){
-        //call function      
-    }
-    
+
     console.log("selectedProfiles", this.selectedProfiles);
     console.log("selectedObjects", this.selectedObjects);
 
     // var Profile = ["System Administrator","Marketing User","Standard User"];
     // var objects = ["Account","Contact"];
-    
   }
 
   /*openprofile=false;

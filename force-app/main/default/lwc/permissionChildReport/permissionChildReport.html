@@ -5,7 +5,7 @@
            
         <template iterator:acc={lstAccounts}>
           <div class="slds-box"  key={acc.value.Id}>
-            <lightning-button-icon if:false={acc.last} icon-name="action:download" class="slds-float_right"></lightning-button-icon>
+            <lightning-button-icon data-item={acc.value.Id} onclick={Download} if:false={acc.last} icon-name="action:download" class="slds-float_right"></lightning-button-icon>
             <lightning-button-icon if:true={acc.first} icon-name="action:filter" onclick={showModal} class="slds-float_right"></lightning-button-icon>
                
             <h1 if:false={acc.last}> {acc.value.Title}</h1>
@@ -35,8 +35,8 @@
                                     </span>
                                   </label>
   
-                                  <c-eventlist></c-eventlist>
-                                  <c-objectcmp></c-objectcmp>
+                                  <c-eventlist-permission-set onprofileupdate={ProfileUpdate}></c-eventlist-permission-set>
+                                  <c-objectcmp onobjectupdate={objectUpdate}></c-objectcmp>
                                   
                               </div>
                               </div>  
@@ -46,7 +46,7 @@
                    </template>
                   
         
-               <lightning-button label="Download Current Org Ols" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;"></lightning-button>
+               <lightning-button label="Download Current Org Ols" title="Download action" icon-name="utility:download" onclick={Download} data-item={acc.value.Id} size="xx-small" style="font-size: small;"></lightning-button>
            <lightning-button label="Download Current Org Fls" title="Download action" icon-name="utility:download" size="xx-small" style="font-size: small;" ></lightning-button>
                  </div>   
             </div>

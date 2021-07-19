@@ -62,8 +62,18 @@ public class RetrieveData {
     
     public static List<ObjectPermissions> GetObjectProfilePermission(List<String> objects, List<String> Profiles){
         
-        List<ObjectPermissions> Permissions = [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
+        List<ObjectPermissions> Permissions = [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, 
+                                              PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, 
+                                              PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType 
+                                              IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
         return Permissions;
 
+    }
+
+    // Permission Set
+
+    public static List<PermissionSet> getPermissionSet (String recordId){
+        List<PermissionSet> PermissionSetlist  = [SELECT name FROM PermissionSet WHERE IsOwnedByProfile=false]; 
+        return PermissionSetlist; 
     }
 }
