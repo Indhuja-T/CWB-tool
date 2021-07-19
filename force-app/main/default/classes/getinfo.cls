@@ -124,7 +124,6 @@ return [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsR
         return RetrieveData.getPermissionSet(recordId);       
     }
 
-
     
     //Queries with Tooling Api
     
