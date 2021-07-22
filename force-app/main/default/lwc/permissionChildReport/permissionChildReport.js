@@ -1,6 +1,8 @@
 import { LightningElement, track, wire } from "lwc";
-
+import getPermissionsForObjects from "@salesforce/apex/PermissionSet_CWB.getPermissionsForObjects";
 export default class ProPermissionChildReport extends LightningElement {
+  selectedPermissionsSet = [];
+  selectedObjects = [];
   lstAccounts = [
     {
       Id: 1,
@@ -62,8 +64,8 @@ export default class ProPermissionChildReport extends LightningElement {
 
   ProfileUpdate(event) {
     //console.log("event h",event.detail);
-    this.selectedProfiles = event.detail;
-    console.log("CHanges in PROFILE parent", this.selectedProfiles);
+    this.selectedPermissionsSet = event.detail;
+    console.log("CHanges in PROFILE parent", this.selectedPermissionsSet);
   }
 
   objectUpdate(event) {
@@ -74,9 +76,11 @@ export default class ProPermissionChildReport extends LightningElement {
   Download(event) {
     var key = event.currentTarget.getAttribute("data-item");
     if (key == 1) {
-      GetObjectProfilePermission({
+      console.log("++++++++++++++++++++" + this.selectedObjects);
+      console.log("++++++++++++++++++++" + this.selectedPermissionsSet);
+      getPermissionsForObjects({
         objects: this.selectedObjects,
-        Profiles: this.selectedProfiles
+        permissionSets: this.selectedPermissionsSet
       })
         .then((result) => {
           console.log("here2");
@@ -103,7 +107,7 @@ export default class ProPermissionChildReport extends LightningElement {
       //call function
     }
 
-    console.log("selectedProfiles", this.selectedProfiles);
+    console.log("selectedProfiles", this.selectedPermissionsSet);
     console.log("selectedObjects", this.selectedObjects);
   }
 }

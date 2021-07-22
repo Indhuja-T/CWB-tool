@@ -1,5 +1,5 @@
 import { LightningElement, track, wire } from "lwc";
-import getprofiles from "@salesforce/apex/getinfo.getprofiles";
+//import getprofiles from "@salesforce/apex/getinfo.getprofiles";
 import GetObjectProfilePermission from "@salesforce/apex/getinfo.GetObjectProfilePermission";
 
 export default class Profile extends LightningElement {

@@ -117,7 +117,7 @@ return [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsR
         return csvfile;
     }
 
-    //---------permission set functions
+    //---------permission set functions (Filter)
 
     @AuraEnabled(cacheable=true)
     public static List<PermissionSet> getPermissionSets (String recordId){

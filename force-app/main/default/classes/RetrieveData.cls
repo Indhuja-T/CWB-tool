@@ -76,4 +76,14 @@ public class RetrieveData {
         List<PermissionSet> PermissionSetlist  = [SELECT name FROM PermissionSet WHERE IsOwnedByProfile=false]; 
         return PermissionSetlist; 
     }
+
+    public static List<FieldPermissions> getPermissionSet (List<String> objects, List<String> permissionSets){
+        List<FieldPermissions> PermissionSetlist  = [SELECT Parent.Name, Field,PermissionsRead,PermissionsEdit 
+                                                 FROM FieldPermissions WHERE SObjectType IN :objects 
+                                                 AND Parent.Name IN :permissionSets]; 
+        return PermissionSetlist; 
+    }
+
+
 }
+
