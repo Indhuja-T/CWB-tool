@@ -2,7 +2,7 @@ import { LightningElement,api,track } from 'lwc';
 
 export default class ChildInputTypeComponent extends LightningElement {
     @api dt;
-   @track value;
+    @track value;
     @track tp;
     @api value;
     @track answers={};
@@ -22,21 +22,35 @@ export default class ChildInputTypeComponent extends LightningElement {
                         return { label: el, value: el }
                       });}
     }
+    @api 
+     play(){
+        const player=this.template.querySelectorAll('lightning-input');
+        return player;
+    }
+    get requirement(){
+        if(this.dt.Required__c === 'Yes'){
+            return true;
+        }
+        if(this.dt.Required__c === 'No'){
+            return false;
+        }
+
+    }
     get answer(){
         if(this.value){
         for(let i=0;i<this.value.length;i++){
             
             console.log(this.dt.Question_ID__c+'11');
             console.log(this.value[i].Question_ID__c+'22');
-            if(this.dt.Question_ID__c === this.value[i].Question_ID__c ){
-                //this.answer=this.value[i].Response__c;
-                console.log(this.value.Response__c+'33');
-                return this.value[i].Response__c;
+                if(this.dt.Question_ID__c === this.value[i].Question_ID__c ){
+                 //this.answer=this.value[i].Response__c;
+                    console.log(this.value.Response__c+'33');
+                    return this.value[i].Response__c;
                 
+                }
         }
-    }
                 
-            }
+    }
             
 
     }
@@ -79,7 +93,7 @@ export default class ChildInputTypeComponent extends LightningElement {
    
     changeHandler(event){
         this.answers[event.target.name] = event.target.value; 
-    console.log(event.target.name + ' now is set to ' + event.target.value);
+        console.log(event.target.name + ' now is set to ' + event.target.value);
         const selectedEvent = new CustomEvent("progressvaluechange", {
             detail: this.answers[event.target.name],
             value: event.target.name
