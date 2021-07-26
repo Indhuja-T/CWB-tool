@@ -213,6 +213,22 @@ export default class QuestionSelect extends LightningElement {
     handleTaskDrag(taskId){
         console.log('$$$TEst: '+ taskId);
     }
+
+    handleDragOver(event){
+        this.cancel(event);
+        let draggableElement = this.template.querySelector('[data-role="drop-target"]');
+        draggableElement.classList.add('over');
+    }
+
+    handleDragLeave(event){
+        this.cancel(event);
+        let draggableElement = this.template.querySelector('[data-role="drop-target"]');
+        draggableElement.classList.remove('over');
+    }
+
+    handleTaskDrag(taskId){
+        console.log('$$$TEst: '+ taskId);
+    }
    
      addSurvey(taskId,taskStatus){
         addToSurvey({surveyId:this.recordId,questionId:taskId,status:taskStatus}).then(result =>{
@@ -240,3 +256,32 @@ export default class QuestionSelect extends LightningElement {
         
     
 }
+   
+     addSurvey(taskId,taskStatus)
+     {
+        addToSurvey({surveyId:this.recordId,questionId:taskId,status:taskStatus}).then(result =>{
+            console.log(result+'22');
+             this.getTaskData();
+             if(taskStatus==='In Progress'){
+                 console.log('In progress');
+                this.showSuccessNotification(); 
+             }
+             if(taskStatus === 'Not Started'){
+                console.log('Not Started');
+                this.showSuccessRemoveNotification();
+             }
+             
+
+        }).catch(error =>{
+            console.log('$$$Test2:'+ JSON.stringify(error));
+        })
+    }
+  /*  cancel(event){
+        if (event.stopPropagation) event.stopPropagation();
+        if (event.preventDefault) event.preventDefault();
+        return false;
+    };
+       
+    */
+
+
