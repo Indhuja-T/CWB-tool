@@ -106,47 +106,5 @@ export default class Profile extends LightningElement {
     console.log("selectedProfiles", this.selectedProfiles);
     console.log("selectedObjects", this.selectedObjects);
 
-    // var Profile = ["System Administrator","Marketing User","Standard User"];
-    // var objects = ["Account","Contact"];
   }
 
-  /*openprofile=false;
-@track val='abc';
-picklistValues;
-error;
-@wire(getprofiles) 
-wiredprofiles({data, error}){
-if(data){
-this.picklistValues=data.values;
-console.log('data', data.values);
-this.error=undefined;
-}
-if(error)
-{
-    this.picklistValues=undefined;
-    this.error=error;   
-}
-}
-handleValueChange(event)
-{
-    console.log(JSON.stringify(event.detail));
-}
-}*/
-}
-
-/*get opt() {
-    var returnOptions = [];
-    if(this.profilelist.data){
-        this.profilelist.data.forEach(ele =>{
-            returnOptions.push({label:ele.Name , value:ele.Name});
-        }); 
-    }
-    console.log(JSON.stringify(returnOptions));
-    return returnOptions;
-}
-handleChange(event) {
-    this.val = event.detail.val;
-}
-get hasResults() {
-    return (this.profilelist.data.length > 0);
- }*/

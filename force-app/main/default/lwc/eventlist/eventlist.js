@@ -1,10 +1,16 @@
 import { LightningElement, track, wire } from 'lwc';
 import getprofiles from '@salesforce/apex/getinfo.getprofiles';
 export default class Eventlist extends LightningElement {
+
+ @track value = 'inProgress';
+valueText = "Select Event";
+=======
 @track value = 'inProgress';
 valueText = "Select Profile";
+
 @wire(getprofiles)
 profilelist;
+
 
 
 
@@ -18,6 +24,18 @@ get eventOptions() {
             returnOptions.push({label:ele.Name , value:ele.Name});
         }); 
     }
+    console.log(JSON.stringify(returnOptions));
+    return returnOptions;
+}
+@track allValues = [];
+
+handleChange(event){
+    if(!this.allValues.includes(event.target.value)){
+        this.allValues.push(event.target.value);
+        this.valueText="Event Selected";
+    }
+}
+=======
     //console.log(JSON.stringify(returnOptions));
     return returnOptions;
 }
@@ -59,6 +77,7 @@ handleChange(event){
    
 
 
+
 handleRemove(event){
     const valueRemoved = event.target.name;
     this.allValues.splice(this.allValues.indexOf(valueRemoved), 1);
@@ -70,6 +89,10 @@ handleRemove(event){
  get hasResults() {
     return (this.profilelist.data.length > 0);
  }
+
+ 
+}
+=======
  /*handlepillselection(event){
     const index = event.target.dataset.index;
     let selectedItem = this.allValues[index];
@@ -79,3 +102,4 @@ handleRemove(event){
  
 
 }
+
