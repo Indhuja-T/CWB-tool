@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title={valueText}>
+        <template if:false={hasResults}></template>
+        <div class="slds-card__body_inner">
+            <lightning-combobox
+                name="progress"
+                label="Select the Permission sets you want to manage."
+                value={value}
+                placeholder="Select Permission Sets"
+                options={eventOptions}
+                onchange={handleChange}
+               
+                >
+                
+            </lightning-combobox>
+        </div>
+        <div class="slds-p-around_xx-small">
+            <template for:each={allValues} for:item="val">
+                <lightning-pill key={val} label={val} name={val} onclick={handlepillselection} onremove={handleRemove}></lightning-pill>
+            </template>
+        </div>
+    </lightning-card>
+</template>

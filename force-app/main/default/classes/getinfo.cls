@@ -117,6 +117,13 @@ return [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsR
         return csvfile;
     }
 
+    //---------permission set functions (Filter)
+
+    @AuraEnabled(cacheable=true)
+    public static List<PermissionSet> getPermissionSets (String recordId){
+        return RetrieveData.getPermissionSet(recordId);       
+    }
+
     
     //Queries with Tooling Api
     
@@ -156,3 +163,6 @@ List<AuraDefinitionBundle> aura = [SELECT Id, MasterLabel, DeveloperName, APIVer
 return aura;*/
     
 }
+
+
+

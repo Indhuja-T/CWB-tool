@@ -60,11 +60,30 @@ public class RetrieveData {
         
     }
     
-    @AuraEnabled
     public static List<ObjectPermissions> GetObjectProfilePermission(List<String> objects, List<String> Profiles){
         
-        List<ObjectPermissions> Permissions = [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
+        List<ObjectPermissions> Permissions = [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, 
+                                              PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, 
+                                              PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType 
+                                              IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
         return Permissions;
 
     }
+
+    // Permission Set
+
+    public static List<PermissionSet> getPermissionSet (String recordId){
+        List<PermissionSet> PermissionSetlist  = [SELECT name FROM PermissionSet WHERE IsOwnedByProfile=false]; 
+        return PermissionSetlist; 
+    }
+
+    public static List<FieldPermissions> getPermissionSet (List<String> objects, List<String> permissionSets){
+        List<FieldPermissions> PermissionSetlist  = [SELECT Parent.Name, Field,PermissionsRead,PermissionsEdit 
+                                                 FROM FieldPermissions WHERE SObjectType IN :objects 
+                                                 AND Parent.Name IN :permissionSets]; 
+        return PermissionSetlist; 
+    }
+
+
 }
+

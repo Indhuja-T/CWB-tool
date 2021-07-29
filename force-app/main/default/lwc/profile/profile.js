@@ -1,153 +1,110 @@
-import { LightningElement, track,wire } from 'lwc';
-import getprofiles from '@salesforce/apex/getinfo.getprofiles';
-import GetObjectProfilePermission from '@salesforce/apex/RetrieveData.GetObjectProfilePermission';
+import { LightningElement, track, wire } from "lwc";
+//import getprofiles from "@salesforce/apex/getinfo.getprofiles";
+import GetObjectProfilePermission from "@salesforce/apex/getinfo.GetObjectProfilePermission";
 
 export default class Profile extends LightningElement {
+  selectedProfiles = [];
+  selectedObjects = [];
 
-selectedProfiles=[];
-selectedObjects=[];
+  lstAccounts = [
+    {
+      Id: 1,
+      Title: "Basic Profile Details",
+      Description:
+        "Explore basic details about profile like apex classes, pages, object permissions, applications and general user permissions."
+    },
+    {
+      Id: 2,
+      Title: "Full Profile Details",
+      Description:
+        "On top of all the basic permissions in above report, this reports additionally offers field level security, record type and layout assignments, record type visibilities, tabs, and login IP range"
+    },
+    {
+      Id: 3,
+      Title: "Download Profile Users with permission set assignment",
+      Description: ""
+    },
+    {
+      Id: 4,
+      Title: "Profile Modified Detail",
+      Description: "Explore who created or modified Profile."
+    },
+    {
+      Id: 5,
+      Title: "Tab Visibility Detail",
+      Description: "Explore Tab Visibility in Profile."
+    },
 
+    {
+      Id: 6,
+      Title: "Object or Field Permission Only",
+      Description: ""
+    }
+  ];
 
-lstAccounts =[{
-    Id:1,
-    Title:'Basic Profile Details',
-    Description:'Explore basic details about profile like apex classes, pages, object permissions, applications and general user permissions.'
-},
-{
-    Id:2,
-    Title:'Full Profile Details',
-    Description:'On top of all the basic permissions in above report, this reports additionally offers field level security, record type and layout assignments, record type visibilities, tabs, and login IP range'
-},
-{
-Id:3,
-Title:'Download Profile Users with permission set assignment',
-Description:''
-},
-{
-Id:4,
-Title:'Profile Modified Detail',
-Description:'Explore who created or modified Profile.'
-},
-{
-    Id:5,
-    Title:'Tab Visibility Detail',
-    Description:'Explore Tab Visibility in Profile.'
-},
+  value = "";
 
-{
-    Id:6,
-    Title:'Object or Field Permission Only',
-    Description:''
-},
-
-]
-
-value = '';
-
-get opt() {
+  get opt() {
     return [
-        { label: 'In this Salesforce Org', value: 'option1' },
-        { label: 'In other Salesforce Org', value: 'option2' },
+      { label: "In this Salesforce Org", value: "option1" },
+      { label: "In other Salesforce Org", value: "option2" }
     ];
-}
-showModal() {
+  }
+  showModal() {
     this.openModal = true;
-}
-closeModal() {
+  }
+  closeModal() {
     this.openModal = false;
-}
+  }
 
-
-@track openModal = false;
-
-ProfileUpdate(event){
+  ProfileUpdate(event) {
     //console.log("event h",event.detail);
     this.selectedProfiles = event.detail;
-    console.log("CHanges in PROFILE parent",this.selectedProfiles);
-}
-objectUpdate(event){
+    console.log("CHanges in PROFILE parent", this.selectedProfiles);
+  }
+
+  objectUpdate(event) {
     this.selectedObjects = event.detail;
-    console.log("CHanges in Object parent",this.selectedObjects);
-}
+    console.log("CHanges in Object parent", this.selectedObjects);
+  }
 
-@track openModal = false;
+  @track openModal = false;
 
-Download(){
-    console.log("Download here");
-    console.log("selectedProfiles",this.selectedProfiles);
-    console.log("selectedObjects",this.selectedObjects);
-    
-    // var Profile = ["System Administrator","Marketing User","Standard User"];
-    // var objects = ["Account","Contact"];         
-    GetObjectProfilePermission( {objects : this.selectedObjects, Profiles : this.selectedProfiles}).then(
-        result => {
-            console.log("here2");
-            console.log(result);
-            var blob = new Blob([result],{type: "application/octet-stream"});
-            if (window.navigator.msSaveOrOpenBlob){
-                window.navigator.msSaveBlob(blob, "DemoCSV.csv");
-              }
-              else {
-                var a = window.document.createElement("a");
-            
-                a.href = window.URL.createObjectURL(blob, {
-                  type: "text/csv"
-                });
-                a.download = "DemoCSV.csv";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-              }
-        }
-    ).catch(
-        error => {
-            console.log('error '+error.message);
-        }
-    );
-}
+  Download(event) {
+    var key = event.currentTarget.getAttribute("data-item");
+    if (key == 1) {
+      // 1st column call function
+      GetObjectProfilePermission({
+        objects: this.selectedObjects,
+        Profiles: this.selectedProfiles
+      })
+        .then((result) => {
+          console.log("here2");
+          console.log(result);
+          var blob = new Blob([result], { type: "application/octet-stream" });
+          if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, "DemoCSV.csv");
+          } else {
+            var a = window.document.createElement("a");
 
-
-/*openprofile=false;
-@track val='abc';
-picklistValues;
-error;
-@wire(getprofiles) 
-wiredprofiles({data, error}){
-if(data){
-this.picklistValues=data.values;
-console.log('data', data.values);
-this.error=undefined;
-}
-if(error)
-{
-    this.picklistValues=undefined;
-    this.error=error;   
-}
-}
-handleValueChange(event)
-{
-    console.log(JSON.stringify(event.detail));
-}
-}*/
-}
-
-/*get opt() {
-    var returnOptions = [];
-    if(this.profilelist.data){
-        this.profilelist.data.forEach(ele =>{
-            returnOptions.push({label:ele.Name , value:ele.Name});
-        }); 
+            a.href = window.URL.createObjectURL(blob, {
+              type: "text/csv"
+            });
+            a.download = "DemoCSV.csv";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+        })
+        .catch((error) => {
+          console.log("error " + error.message);
+        });
+    } else if (key == 2) {
+      //call function
     }
-    console.log(JSON.stringify(returnOptions));
-    return returnOptions;
-}
-handleChange(event) {
-    this.val = event.detail.val;
-}
-get hasResults() {
-    return (this.profilelist.data.length > 0);
 
- }
+    console.log("selectedProfiles", this.selectedProfiles);
+    console.log("selectedObjects", this.selectedObjects);
 
- }*/
+  }
 

@@ -1,5 +1,5 @@
 import { LightningElement, wire , track } from 'lwc';
-import GetObjectProfilePermission from '@salesforce/apex/RetrieveData.GetObjectProfilePermission';
+import GetObjectProfilePermission from '@salesforce/apex/getinfo.GetObjectProfilePermission';
 export default class CSVDownload extends LightningElement {
     //data;
     //@track data;
