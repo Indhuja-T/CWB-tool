@@ -1,15 +1,7 @@
-
 import { LightningElement, track,wire } from 'lwc';
 import getprofiles from '@salesforce/apex/getinfo.getprofiles';
-export default class Profile extends LightningElement {
-
-import { LightningElement,track,wire} from 'lwc';
-import getprofiles from '@salesforce/apex/getinfo.getprofiles';
 import GetObjectProfilePermission from '@salesforce/apex/getinfo.GetObjectProfilePermission';
-
-export default class ObjectChildReport extends LightningElement {
-
-
+export default class Profile extends LightningElement {
 
 lstAccounts =[{
     Id:1,

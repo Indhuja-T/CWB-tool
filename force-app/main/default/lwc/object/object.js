@@ -51,5 +51,5 @@ closeModal() {
     this.openModal = false;
 }
 
-
+}
 

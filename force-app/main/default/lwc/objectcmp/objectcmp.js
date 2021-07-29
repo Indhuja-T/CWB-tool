@@ -1,13 +1,10 @@
 import { LightningElement, track, wire } from 'lwc';
 import getobj from '@salesforce/apex/getinfo.getobj';
 export default class Objectcmp extends LightningElement {
- @track value = 'inProgress';
+@track value = 'inProgress';
 valueText = "Select Event";
 @wire(getobj)
 objectlist;
-
-
-
 
 objectsSelected=[];
 
@@ -19,17 +16,7 @@ get eventOptions() {
         }); 
     }
 
-    console.log(JSON.stringify(returnOptions));
-    return returnOptions;
-}
-@track allValues = [];
-
-handleChange(event){
-    if(!this.allValues.includes(event.target.value)){
-        this.allValues.push(event.target.value);
-        this.valueText="Object Selected";
-=======
-   // console.log(JSON.stringify(returnOptions));
+    //console.log(JSON.stringify(returnOptions));
     return returnOptions;
 }
 @track allValues = [];
@@ -65,5 +52,5 @@ handleRemove(event){
  
 
 }
-}
+
 
