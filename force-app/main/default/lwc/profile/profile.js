@@ -107,4 +107,4 @@ export default class Profile extends LightningElement {
     console.log("selectedObjects", this.selectedObjects);
 
   }
-
+}

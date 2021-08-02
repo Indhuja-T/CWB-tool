@@ -1,5 +1,6 @@
 import { LightningElement, track, wire } from "lwc";
 import getPermissionsForObjects from "@salesforce/apex/PermissionSet_CWB.getPermissionsForObjects";
+import getPermissionSetAssignmentDetails from "@salesforce/apex/PermissionSet_CWB.getPermissionSetAssignmentDetails";
 export default class ProPermissionChildReport extends LightningElement {
   selectedPermissionsSet = [];
   selectedObjects = [];
@@ -75,38 +76,43 @@ export default class ProPermissionChildReport extends LightningElement {
   Download(event) {
     var key = event.currentTarget.getAttribute("data-item");
     if (key == 1) {
-      console.log("++++++++++++++++++++" + this.selectedObjects);
-      console.log("++++++++++++++++++++" + this.selectedPermissionsSet);
       getPermissionsForObjects({
         objects: this.selectedObjects,
         permissionSets: this.selectedPermissionsSet
       })
-        .then((result) => {
-          console.log("here2");
-          console.log(result);
-          var blob = new Blob([result], { type: "application/octet-stream" });
-          if (window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveBlob(blob, "DemoCSV.csv");
-          } else {
-            var a = window.document.createElement("a");
-
-            a.href = window.URL.createObjectURL(blob, {
-              type: "text/csv"
-            });
-            a.download = "DemoCSV.csv";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          }
+        .then((data) => {
+          DownloadCSV(data);
         })
         .catch((error) => {
           console.log("error " + error.message);
         });
-    } else if (key == 2) {
-      //call function
+    } else if (key == 3) {
+      getPermissionSetAssignmentDetails()
+        .then((data) => {
+          DownloadCSV(data);
+        })
+        .catch((error) => {
+          console.log("error " + error.message);
+        });
     }
 
     console.log("selectedProfiles", this.selectedPermissionsSet);
     console.log("selectedObjects", this.selectedObjects);
+  }
+}
+function DownloadCSV(data) {
+  var blob = new Blob([data], { type: "application/octet-stream" });
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveBlob(blob, "DemoCSV.csv");
+  } else {
+    var a = window.document.createElement("a");
+
+    a.href = window.URL.createObjectURL(blob, {
+      type: "text/csv"
+    });
+    a.download = "DemoCSV.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 }

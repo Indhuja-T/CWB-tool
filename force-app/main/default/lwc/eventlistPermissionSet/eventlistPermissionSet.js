@@ -12,7 +12,7 @@ export default class Eventlist extends LightningElement {
     var returnOptions = [];
     if (this.permissionSetsList.data) {
       this.permissionSetsList.data.forEach((ele) => {
-        returnOptions.push({ label: ele.Name, value: ele.Name });
+        returnOptions.push({ label: ele.Label, value: ele.Label });
       });
     }
     return returnOptions;

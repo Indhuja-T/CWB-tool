@@ -37,8 +37,6 @@ public class RetrieveData {
     public static List<user> getuserperm(String recordId){
         List<user> userperm = [select  profile.name,usertype from user];
         return userperm;
-        //query for user data
-        //SELECT Name, createddate,CreatedBy.FirstName,lastmodifieddate,LastModifiedBy.FirstName FROM Profile   
     }
     
     public static List<Profile> getprofiles (String recordId){
@@ -63,27 +61,36 @@ public class RetrieveData {
     public static List<ObjectPermissions> GetObjectProfilePermission(List<String> objects, List<String> Profiles){
         
         List<ObjectPermissions> Permissions = [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, 
-                                              PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, 
-                                              PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType 
-                                              IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
+                                               PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, 
+                                               PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType 
+                                               IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
         return Permissions;
-
+        
     }
-
+    
     // Permission Set
-
+    
     public static List<PermissionSet> getPermissionSet (String recordId){
-        List<PermissionSet> PermissionSetlist  = [SELECT name FROM PermissionSet WHERE IsOwnedByProfile=false]; 
+        List<PermissionSet> PermissionSetlist  = [SELECT Label FROM PermissionSet WHERE IsOwnedByProfile=false]; 
         return PermissionSetlist; 
     }
-
+    
+    public static Map<ID,PermissionSet> getPermissionSetMap (){
+        Map<ID,PermissionSet> PermissionSetlist  = new Map<ID,PermissionSet>([SELECT Label, Id, NamespacePrefix FROM PermissionSet WHERE IsOwnedByProfile=false]); 
+        return PermissionSetlist; 
+    }
+    
+    public static List<PermissionSetAssignment> getPermissionSetAssignment (){
+        List<PermissionSetAssignment> PermissionSetlist  = [SELECT PermissionSet.Id FROM PermissionSetAssignment where PermissionSet.IsOwnedByProfile = false ];
+        return PermissionSetlist; 
+    }
+    
     public static List<FieldPermissions> getPermissionSet (List<String> objects, List<String> permissionSets){
         List<FieldPermissions> PermissionSetlist  = [SELECT Parent.Name, Field,PermissionsRead,PermissionsEdit 
-                                                 FROM FieldPermissions WHERE SObjectType IN :objects 
-                                                 AND Parent.Name IN :permissionSets]; 
+                                                     FROM FieldPermissions WHERE SObjectType IN :objects 
+                                                     AND Parent.Name IN :permissionSets]; 
         return PermissionSetlist; 
     }
-
-
+    
+    
 }
-

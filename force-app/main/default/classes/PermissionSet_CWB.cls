@@ -11,7 +11,7 @@ public with sharing class PermissionSet_CWB {
         String SubHeaders = ' , ,'+'Readable ,Editable ,'.repeat(permissionSets.size());
         SubHeaders += '\n';
         
-        //Arranging data to process earlier
+        //Arranging data to process Later
         Map<String,Map<String,Map<String,Boolean>>> ObjectPermissions = new Map<String,Map<String,Map<String,Boolean>>>();
         for(FieldPermissions op : Permissions){
             if(ObjectPermissions.get(op.Field) == null){
@@ -50,7 +50,7 @@ public with sharing class PermissionSet_CWB {
                     system.debug(ps);
                     if (objectpermissions.get(key)!=null && objectpermissions.get(key).get(ps)!=null){                        
                         if(Nillable && Permissionable){
-                        
+                            
                             csvcontent += String.valueOf(objectpermissions.get(key).get(ps).get('Readable')) + ',';
                             csvcontent += String.valueOf(objectpermissions.get(key).get(ps).get('Editable')) + ',';
                         }
@@ -72,5 +72,37 @@ public with sharing class PermissionSet_CWB {
         String csvfile = Headers + subHeaders + csvcontent;
         system.debug(csvfile);
         return csvfile;
+    }
+    
+    @AuraEnabled
+    public static String getPermissionSetAssignmentDetails() {
+        Map<ID,PermissionSet> allPermissionSets = RetrieveData.getPermissionSetMap();
+        list<PermissionSetAssignment> permissionSetAssignments = RetrieveData.getPermissionSetAssignment();
+        String Headers = 'Permission Set Id,Permission Set Name,Namespace Prefix,Total Assignment';        
+        Headers += '\n';
+        String csvString = Headers;
+        Map<Id, Integer> permissionSetCount = new Map<Id, Integer>();
+        for(ID i : allPermissionSets.keySet()){
+            permissionSetCount.put(i,0);
+        }
+        system.debug(permissionSetCount);
+        for(PermissionSetAssignment pa : permissionSetAssignments){
+            Integer temp = permissionSetCount.get(pa.PermissionSet.Id);
+            temp += 1;
+            system.debug('temp='+temp);
+            permissionSetCount.put(pa.PermissionSet.Id,temp);
+        }
+        
+        System.Debug(permissionSetCount);
+        
+        for(ID i : allPermissionSets.keySet()){
+            PermissionSet p = allPermissionSets.get(i);
+            csvString += p.ID + ',';
+            csvString += p.Label+ ',';
+            csvString += p.NamespacePrefix + ',';
+            csvString += permissionSetCount.get(i) + '\n';
+        }
+        system.debug(csvString);
+        return csvString;
     }
 }
