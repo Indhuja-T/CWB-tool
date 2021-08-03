@@ -73,8 +73,8 @@
                     <template if:true={questionAdded}>
                         <template for:each={questionAdded} for:item="data">
                             <div key={data.Id} draggable="true" id={data.Id} data-id={data.Id} ondragstart={taskDragStart} ondragend={taskDragEnd} class="slds-p-around_small">
-                                <lightning-card style="width: 50px;"  variant="Narrow" >
-                                    <div class="slds-p-horizontal_small">
+                                <lightning-card style="width: 50px;"  variant="Narrow"  >
+                                    <div class="slds-p-horizontal_small questionDesign">
                                         <template if:true={data.Question_Text__c}>
                                             Question - <lightning-formatted-text value={data.Question_Text__c} target="_blank" ></lightning-formatted-text><br/><br/>
                                         </template>

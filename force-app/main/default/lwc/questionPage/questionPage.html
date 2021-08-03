@@ -1,11 +1,26 @@
-<template >
-    <template if:true={Active}>
+<template>
+  
+    <div style="background-color: #39603D;background-position:full">
+    <template class="employee"  if:true={Active}>
     
-    <template if:true={showUser}>
-        <lightning-input name="Employee_ID" type="text" label="Employee ID" val={userDetails} onchange={userChangeHandler} ></lightning-input><br><br>
-        <lightning-input name="Employee_Name" type="text" label="Employee Name" val={userDetails} onchange={userChangeHandler} ></lightning-input><br><br>
-        <lightning-input name="Email" type="email" label="Email" val={userDetails} onchange={userChangeHandler} ></lightning-input><br><br>
-        <lightning-button label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br><br>
+    <template  if:true={showUser}  >
+        <div class="slds-p-top_xx-large slds-align_absolute-center" style="position:relative">
+        
+        <div class="slds-box box" style="width:500px;">
+            <lightning-card >
+                <div class="slds-card-header">
+                    <h1 class="h1" style="text-align:center">Employee Details</h1><br><br>
+                </div>
+                <label class="label-input" for="Employee_ID">Employee ID</label>
+                    <lightning-input class="input" name="Employee_ID" type="text" id="Employee_ID" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
+                <label class="label-input"  for="Employee_Name">Employee Name</label>
+                    <lightning-input class="input" name="Employee_Name" type="text" id="Employee_Name" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
+                <label class="label-input" for="Email">Email</label>
+                    <lightning-input class="input" name="Email" type="email" id="Email" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
+                <lightning-button class="slds-button slds-p-left_xx-small" label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br>
+            </lightning-card>
+        </div>
+    </div>
     </template>
 
 
@@ -14,14 +29,14 @@
                 <div class="slds-modal__container">  
                 <!------HEADER Section-->  
                     <div class="slds-modal__header">  
-                        <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large"  
+                        <lightning-button-icon  icon-name="utility:close" alternative-text="Close this window" size="large"  
                             variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
                         </lightning-button-icon>  
-                        <h2>Welcome To Custom Site of Developers</h2>  
+                        <h2 class="h2">Welcome!</h2>  
                     </div>  
                 <!------Body Section-->  
                     <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
-                        <P>You have already submitted your response <br>  
+                        <P class="p">You have already submitted your response <br>  
                             If you want to edit your previous response click "Ok"<br>
                             If you dont want to make changes to your previous response select "Cancel"  
                         </P>  
@@ -39,15 +54,16 @@
 
           <!-- Question box for edit response-->
           <div if:true={editValues} class="slds-box">
-            <lightning-card title="Questions">
+            <lightning-card class="title" >
+                <h1 class="h1" >{title}</h1><br><br>
                 <ul>
                     
                     <template for:each={lstQuestions} for:item="que" for:index="indexvar">
                         <li key={que.Question_ID__c}>
                             <div class="slds-p-around_medium lgc-bg">
                                 <lightning-tile >
-                                      <lightning-formatted-rich-text value={que.Question_ID__r.Question_Text__c}></lightning-formatted-rich-text>
-                                      <c-child-input-type-component name={que.Question_ID__c} dt={que} val={que.Question_ID__r.Picklist_Values__c} value={lstAnswers} pass={que.Required__c} onprogressvaluechange={hanldeProgressValueChange}></c-child-input-type-component>
+                                    <!--  <lightning-formatted-rich-text value={que.Question_ID__r.Question_Text__c}></lightning-formatted-rich-text> -->
+                                      <c-child-input-type-component class="input-design" label={que.Question_ID__r.Question_Text__c} name={que.Question_ID__c} dt={que} val={que.Question_ID__r.Picklist_Values__c} value={lstAnswers} pass={que.Required__c} onprogressvaluechange={hanldeProgressValueChange}></c-child-input-type-component>
                                 </lightning-tile>
                             </div>
                         </li>
@@ -67,20 +83,22 @@
             <div class="slds-box">
       
         
-                <lightning-card title="Questions">
+                <lightning-card class="title" >
+                    <h1 class="h1" >{title}</h1>
+                    <br><br>
                     <ul>
                         <template if:true={responseReceived}> 
                             <template for:each={lstQuestions} for:item="que" for:index="indexvar">
                                 <li key={que.Question_ID__c}>
                                     <div class="slds-p-around_medium lgc-bg">
                                         <lightning-tile >
-                                            <lightning-formatted-rich-text value={que.Question_ID__r.Question_Text__c}></lightning-formatted-rich-text>
-                                            <c-child-input-type-component name={que.Question_ID__c} dt={que} val={que.Question_ID__r.Picklist_Values__c} pass={que.Required__c} onprogressvaluechange={hanldeProgressValueChange}></c-child-input-type-component>
+                                         <!--   <lightning-formatted-rich-text value={que.Question_ID__r.Question_Text__c}></lightning-formatted-rich-text> -->
+                                            <c-child-input-type-component  label={que.Question_ID__r.Question_Text__c} name={que.Question_ID__c} dt={que} val={que.Question_ID__r.Picklist_Values__c} pass={que.Required__c} onprogressvaluechange={hanldeProgressValueChange}></c-child-input-type-component> 
                                         </lightning-tile>
                                     </div>
                                 </li>
                             </template>
-                                <lightning-button label="SAVE" key={savekey} type="submit" variant="brand" onclick={saveHandler}></lightning-button>
+                                <lightning-button class="button" label="SAVE" key={savekey} type="submit" variant="brand" onclick={saveHandler}></lightning-button>
                                 <lightning-input type="toggle" key={toggleKey} label="See other's Response"  message-toggle-active="" message-toggle-inactive=""  onclick={toggleClick} variant="brand" class="slds-float_right" ></lightning-input>  
                         </template>
                     </ul>
@@ -92,14 +110,18 @@
         <!--Table display template-->
         <template if:true={wantResponse}>  
             <template if:true={showTable}>
+               
                 <lightning-datatable
+                    column-widths-mode="auto"
                     key-field="Id"
                     data={lstQueResponse}
                     columns={columns}
                     hide-checkbox-column="true"
                     show-row-number-column="true"
-                    >
+                    fixed-header="true"
+                >
                 </lightning-datatable>
+           
             </template>
         </template>
 
@@ -111,11 +133,11 @@
                     <div class="slds-modal__container">  
                     <!------HEADER Section-->  
                         <div class="slds-modal__header">   
-                            <h2>Thank you for visiting Custom Site of developers</h2>  
+                            <h2 class="h2">Thank you!</h2>  
                         </div>  
                     <!------Body Section-->  
                         <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
-                            <P>You have submitted your response <br>  
+                            <P class="p">You have submitted your response <br>  
                               You can close this page<br>  
                             </P>  
                         </div>  
@@ -131,15 +153,17 @@
         <div class="slds-modal__container">  
         <!------HEADER Section-->  
             <div class="slds-modal__header">   
-                <h2>Sorry for the inconvenience</h2>  
+                <h2 class="h2">Sorry for the inconvenience</h2>  
             </div>  
         <!------Body Section-->  
             <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
-                <P>This site is no longer in use <br>  
-                  Please contact administrator<br>  
+                <P class="p">This survey is no longer valid<br>  
+             
                 </P>  
             </div>  
         </div>  
     </div>  
 </template>
+</div>
+
 </template>

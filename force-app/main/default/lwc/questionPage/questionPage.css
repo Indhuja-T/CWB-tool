@@ -1,0 +1,82 @@
+.title{
+    font-weight: bold;
+	border-bottom: 2px solid #ddd;
+	margin-bottom: 20px;
+	font-size: 15px;
+	padding-bottom: 3px;
+}
+.slds-modal__header{
+    background-color: cornflowerblue;
+}
+.h2{
+    font-size: medium;
+    color:black;  
+}
+.p{
+    font-size: medium;
+    font-weight:lighter;
+    color:black;   
+}
+.label{
+    -webkit-text-fill-color:#A3BCB6;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:large;
+    font-weight:bold;
+}
+.employee{
+    background: #DADED4;
+}
+.label-input{
+    -webkit-text-fill-color:darkcyan;
+    font-family:Arial, Helvetica, sans-serif;
+	margin-left: 10px;
+    font-size:medium;
+    font-weight:bold;
+}
+
+.input{
+    font-family: Georgia, "Times New Roman", Times, serif;
+	background: rgba(255,255,255,.1);
+	border: none;
+	border-radius: 4px;
+	font-size: 15px;
+	margin-left: 10px;
+	margin-right:10px;
+	outline: 0;
+	padding: 10px;
+	width: 90%;
+	background-color:#DAD3D4;
+	color:black;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	margin-bottom: 30px;
+}
+
+.input:hover{
+    background:#3C403D;
+}
+.h1{
+font-size:medium;
+font-weight:bold;
+font-style:italic;
+color:black;
+text-align:center;
+text-decoration:underline;
+
+}
+.custombox{
+	padding: 1rem;
+    border: 1px solid #d8dde6;
+}
+.box{
+	border-radius: 4px;
+	box-shadow: 0 1px 0 black outset;
+}
+.button{
+	padding-left: 10px;
+	color:#39603D;
+	background-color: white;
+	border: 2px solid #4CAF50; /* Green */
+}
+body{
+	background-color: #A3BCB6;;
+}
