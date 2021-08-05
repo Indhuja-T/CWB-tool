@@ -1,44 +1,24 @@
 <template>
-<<<<<<< HEAD
-    <template class="employee" if:true={Active}>
-    
-    <template if:true={showUser}>
-        <div class="slds-box" >
-            <lightning-card >
-                <h1 class="h1">Employee Details</h1><br><br>
-=======
-  
     <div style="background-color: #39603D;background-position:full">
     <template class="employee"  if:true={Active}>
-    
     <template  if:true={showUser}  >
         <div class="slds-p-top_xx-large slds-align_absolute-center" style="position:relative">
-        
-        <div class="slds-box box" style="width:500px;">
-            <lightning-card >
+        <div class="slds-box color" style="width:500px;">
+            <lightning-card>
                 <div class="slds-card-header">
                     <h1 class="h1" style="text-align:center">Employee Details</h1><br><br>
                 </div>
->>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
                 <label class="label-input" for="Employee_ID">Employee ID</label>
                     <lightning-input class="input" name="Employee_ID" type="text" id="Employee_ID" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
                 <label class="label-input"  for="Employee_Name">Employee Name</label>
                     <lightning-input class="input" name="Employee_Name" type="text" id="Employee_Name" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
                 <label class="label-input" for="Email">Email</label>
                     <lightning-input class="input" name="Email" type="email" id="Email" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
-<<<<<<< HEAD
-                <lightning-button  label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br>
-            </lightning-card>
-        </div>
-=======
                 <lightning-button class="slds-button slds-p-left_xx-small" label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br>
             </lightning-card>
         </div>
     </div>
->>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
     </template>
-
-
         <template if:true={editTemplate}>  
             <div class="slds-modal slds-fade-in-open slds-backdrop">  
                 <div class="slds-modal__container">  
@@ -47,11 +27,7 @@
                         <lightning-button-icon  icon-name="utility:close" alternative-text="Close this window" size="large"  
                             variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
                         </lightning-button-icon>  
-<<<<<<< HEAD
-                        <h2 class="h2">Welcome To Custom Site of Developers</h2>  
-=======
                         <h2 class="h2">Welcome!</h2>  
->>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
                     </div>  
                 <!------Body Section-->  
                     <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
@@ -64,19 +40,15 @@
                     <div class="slds-modal__footer"> 
                         <lightning-button icon-name="utility:check" label="Ok" variant="brand" class="slds-float_left" onclick={editResponseTemplate}></lightning-button> 
                         <lightning-button icon-name="utility:close" label="Cancel" variant="brand" onclick={closeModal}> </lightning-button> 
-                    
                     </div>  
                 </div>  
             </div>  
           </template>
-
-
           <!-- Question box for edit response-->
           <div if:true={editValues} class="slds-box">
             <lightning-card class="title" >
                 <h1 class="h1" >{title}</h1><br><br>
                 <ul>
-                    
                     <template for:each={lstQuestions} for:item="que" for:index="indexvar">
                         <li key={que.Question_ID__c}>
                             <div class="slds-p-around_medium lgc-bg">
@@ -89,19 +61,13 @@
                     </template>
                         <lightning-button label="SAVE"  type="submit" variant="brand" onclick={saveHandler}></lightning-button>
                         <lightning-input type="toggle" label="See other's Response"  message-toggle-active="" message-toggle-inactive=""  onclick={toggleClick} variant="brand" class="slds-float_right" ></lightning-input>              
-                    
                 </ul>
-                
             </lightning-card> 
           </div>
-
-
           <!--Question box for first time response-->
     <div if:false={editTemplate}>
         <template if:true={showForm}>
             <div class="slds-box">
-      
-        
                 <lightning-card class="title" >
                     <h1 class="h1" >{title}</h1>
                     <br><br>
@@ -124,12 +90,9 @@
                 </lightning-card> 
             </div>
         </template>
-
-
         <!--Table display template-->
         <template if:true={wantResponse}>  
             <template if:true={showTable}>
-               
                 <lightning-datatable
                     column-widths-mode="auto"
                     key-field="Id"
@@ -140,11 +103,8 @@
                     fixed-header="true"
                 >
                 </lightning-datatable>
-           
             </template>
         </template>
-
-
         <!--Response saved message-->
         <template if:false={wantResponse}>
             <template if:true={showTable}>
@@ -152,11 +112,7 @@
                     <div class="slds-modal__container">  
                     <!------HEADER Section-->  
                         <div class="slds-modal__header">   
-<<<<<<< HEAD
-                            <h2 class="h2">Thank you for visiting Custom Site of developers</h2>  
-=======
                             <h2 class="h2">Thank you!</h2>  
->>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
                         </div>  
                     <!------Body Section-->  
                         <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
@@ -169,7 +125,6 @@
             </template>
         </template> 
     </div>
-
 </template>
 <template if:false={Active}>
     <div class="slds-modal slds-fade-in-open slds-backdrop">  
@@ -181,12 +136,10 @@
         <!------Body Section-->  
             <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
                 <P class="p">This survey is no longer valid<br>  
-             
                 </P>  
             </div>  
         </div>  
     </div>  
 </template>
 </div>
-
 </template>
