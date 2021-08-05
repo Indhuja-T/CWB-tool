@@ -1,4 +1,12 @@
 <apex:page controller="Email_Class" showHeader="false">
+    <apex:includeLightning />
+    <style>
+        body {
+            background-color: #39603D;
+           
+        }
+              
+    </style>
     <p>
         Test Email Sending:
     </p>
