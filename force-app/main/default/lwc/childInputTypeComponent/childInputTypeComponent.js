@@ -22,11 +22,7 @@ export default class ChildInputTypeComponent extends LightningElement {
                         return { label: el, value: el }
                       });}
     }
-    @api 
-     play(){
-        const player=this.template.querySelectorAll('lightning-input');
-        return player;
-    }
+    
     get requirement(){
         if(this.dt.Required__c === 'Yes'){
             return true;

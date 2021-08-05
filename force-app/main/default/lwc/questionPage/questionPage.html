@@ -1,19 +1,41 @@
 <template>
+<<<<<<< HEAD
     <template class="employee" if:true={Active}>
     
     <template if:true={showUser}>
         <div class="slds-box" >
             <lightning-card >
                 <h1 class="h1">Employee Details</h1><br><br>
+=======
+  
+    <div style="background-color: #39603D;background-position:full">
+    <template class="employee"  if:true={Active}>
+    
+    <template  if:true={showUser}  >
+        <div class="slds-p-top_xx-large slds-align_absolute-center" style="position:relative">
+        
+        <div class="slds-box box" style="width:500px;">
+            <lightning-card >
+                <div class="slds-card-header">
+                    <h1 class="h1" style="text-align:center">Employee Details</h1><br><br>
+                </div>
+>>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
                 <label class="label-input" for="Employee_ID">Employee ID</label>
                     <lightning-input class="input" name="Employee_ID" type="text" id="Employee_ID" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
                 <label class="label-input"  for="Employee_Name">Employee Name</label>
                     <lightning-input class="input" name="Employee_Name" type="text" id="Employee_Name" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
                 <label class="label-input" for="Email">Email</label>
                     <lightning-input class="input" name="Email" type="email" id="Email" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
+<<<<<<< HEAD
                 <lightning-button  label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br>
             </lightning-card>
         </div>
+=======
+                <lightning-button class="slds-button slds-p-left_xx-small" label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br>
+            </lightning-card>
+        </div>
+    </div>
+>>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
     </template>
 
 
@@ -25,7 +47,11 @@
                         <lightning-button-icon  icon-name="utility:close" alternative-text="Close this window" size="large"  
                             variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
                         </lightning-button-icon>  
+<<<<<<< HEAD
                         <h2 class="h2">Welcome To Custom Site of Developers</h2>  
+=======
+                        <h2 class="h2">Welcome!</h2>  
+>>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
                     </div>  
                 <!------Body Section-->  
                     <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
@@ -91,7 +117,7 @@
                                     </div>
                                 </li>
                             </template>
-                                <lightning-button label="SAVE" key={savekey} type="submit" variant="brand" onclick={saveHandler}></lightning-button>
+                                <lightning-button class="button" label="SAVE" key={savekey} type="submit" variant="brand" onclick={saveHandler}></lightning-button>
                                 <lightning-input type="toggle" key={toggleKey} label="See other's Response"  message-toggle-active="" message-toggle-inactive=""  onclick={toggleClick} variant="brand" class="slds-float_right" ></lightning-input>  
                         </template>
                     </ul>
@@ -103,14 +129,18 @@
         <!--Table display template-->
         <template if:true={wantResponse}>  
             <template if:true={showTable}>
+               
                 <lightning-datatable
+                    column-widths-mode="auto"
                     key-field="Id"
                     data={lstQueResponse}
                     columns={columns}
                     hide-checkbox-column="true"
                     show-row-number-column="true"
-                    >
+                    fixed-header="true"
+                >
                 </lightning-datatable>
+           
             </template>
         </template>
 
@@ -122,7 +152,11 @@
                     <div class="slds-modal__container">  
                     <!------HEADER Section-->  
                         <div class="slds-modal__header">   
+<<<<<<< HEAD
                             <h2 class="h2">Thank you for visiting Custom Site of developers</h2>  
+=======
+                            <h2 class="h2">Thank you!</h2>  
+>>>>>>> d7835155fb8d70c1f9956a0bb6aaf10e0af277ca
                         </div>  
                     <!------Body Section-->  
                         <div class="slds-modal__content slds-p-around_medium slds-text-align_center">  
@@ -153,4 +187,6 @@
         </div>  
     </div>  
 </template>
+</div>
+
 </template>
