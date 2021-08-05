@@ -35,6 +35,7 @@ export default class QuestionPage extends LightningElement {
             console.log(result);
             this.lstQuestions = result;
             this.n=result.length;
+            this.getTitle();
             console.log(this.lstQuestions[0].Survey_ID__r.Active__c);
             if(this.lstQuestions[0].Survey_ID__r.Active__c){
                 this.Active=true;
@@ -47,6 +48,13 @@ export default class QuestionPage extends LightningElement {
         .catch(error => {
             console.log('error'+error.message);
         });        
+    }
+    getTitle(){
+        if(this.lstQuestions){
+            console.log(this.lstQuestions[0].Survey_ID__r.Survey_Name__c);
+            this.title=this.lstQuestions[0].Survey_ID__r.Survey_Name__c;
+            return this.lstQuestions[0].Survey_ID__r.Survey_Name__c;
+        }
     }
     //Calling function to set survey and user id
     setIds(){
@@ -107,6 +115,7 @@ export default class QuestionPage extends LightningElement {
     @track lstAnswers;
     @track yesResponse = false;
     @track userDetails ={};
+    @track title;
     
     columns = COLS;
    
