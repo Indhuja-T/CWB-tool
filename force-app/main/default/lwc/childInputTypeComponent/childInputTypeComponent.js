@@ -6,10 +6,11 @@ export default class ChildInputTypeComponent extends LightningElement {
     @track tp;
     @api value;
     @track answers={};
-    @api values = [] // "yes,no"
-    @track answers ={};
+    @api values = []; // "yes,no"
     @api val;
-    @track valueOption = []
+    @track valueOption = [];
+    valueList=[];
+    
     connectedCallback() {
         this.processOptions();
     }
@@ -22,11 +23,7 @@ export default class ChildInputTypeComponent extends LightningElement {
                         return { label: el, value: el }
                       });}
     }
-    @api 
-     play(){
-        const player=this.template.querySelectorAll('lightning-input');
-        return player;
-    }
+    
     get requirement(){
         if(this.dt.Required__c === 'Yes'){
             return true;
@@ -53,7 +50,7 @@ export default class ChildInputTypeComponent extends LightningElement {
     }
             
 
-    }
+   }
     get text(){
         if(this.dt.Question_ID__r.Response_Type__c === "Rich Text Area"){    
             return true;
@@ -68,6 +65,13 @@ export default class ChildInputTypeComponent extends LightningElement {
     }
     get picklist(){
         if(this.dt.Question_ID__r.Response_Type__c === "Picklist"){  
+            return true;
+        }
+        return false;
+    }
+    get multipicklist(){
+        if(this.dt.Question_ID__r.Response_Type__c === "Multi-Picklist"){ 
+            this.pick=true; 
             return true;
         }
         return false;
@@ -90,14 +94,32 @@ export default class ChildInputTypeComponent extends LightningElement {
         }
         return false;
     }
-   
     changeHandler(event){
+        if(!this.pick){
         this.answers[event.target.name] = event.target.value; 
-        console.log(event.target.name + ' now is set to ' + event.target.value);
+        console.log(event.target.name + ' now is set to ' + event.target.value+'in child');
+        console.log( this.answers[event.target.name]);
         const selectedEvent = new CustomEvent("progressvaluechange", {
+          
             detail: this.answers[event.target.name],
             value: event.target.name
           });
           this.dispatchEvent(selectedEvent);
+       }
+         if(this.pick){
+            console.log('inside picklist');
+            this.answers[event.target.name]=event.detail.value.join(',');
+            console.log(event.target.name + ' now is set to ' +event.detail.value+'in child');
+            console.log(this.answers[event.target.name]);
+            const selectedEvent = new CustomEvent("progressvaluechange", {
+              
+                detail:this.answers[event.target.name],
+                value: event.target.name
+              });
+              this.dispatchEvent(selectedEvent);
+        }
     }
+    
+   
+      
 }

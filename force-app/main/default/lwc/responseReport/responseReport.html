@@ -1,0 +1,15 @@
+<template>
+    <!-- <lightning-datatable
+                    column-widths-mode="auto"
+                    key-field="Id"
+                    data={lstQueResponse}
+                    columns={columns}
+                    hide-checkbox-column="true"
+                    show-row-number-column="true"
+                    fixed-header="true"
+                >
+                </lightning-datatable> -->
+                <lightning-button variant="brand" label="Verify User" onclick={handleVerify}></lightning-button>
+                <lightning-input value="pass" label="OTP" type="password" onchange={handlePwdChange}></lightning-input>
+                <lightning-button variant="brand" label="Login" onclick={handleLogin}></lightning-button>
+</template>

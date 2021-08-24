@@ -40,16 +40,16 @@
             </lightning-card>
 </template> --> 
 <template>
-        <lightning-layout vertical-align="stretch" multiple-rows="true" class="x-large">
-            <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box">
-                <div class="slds-box slds-p-around_medium slds-text-align_center">
-                    <div id="newTask" style="height:100%" data-role="drop-target" ondrop={handleDropRemove} ondragenter={handleDragEnter} ondragover={handleDragOver} ondragleave={handleDragLeave}>
+        <lightning-layout vertical-align="stretch"  multiple-rows="true" class="x-large">
+            <lightning-layout-item style="height:750px;" flexibility="auto" size="6" padding="around-small" class="custom-box">
+                <div class="slds-scrollable--y slds-box slds-p-around_medium slds-text-align_center">
+                    <div id="newTask"  data-role="drop-target" ondrop={handleDropRemove} ondragenter={handleDragEnter} ondragover={handleDragOver} ondragleave={handleDragLeave}>
                     <div class="slds-text-heading_large">Add questions</div>
                    
                     <template if:true={lstQue}>
                         <template for:each={lstQue} for:item="data">
                             <div key={data.Id} draggable="true" id={data.Id} data-id={data.Id} ondragstart={taskDragStart} ondragend={taskDragEnd} class="slds-p-around_small">
-                                <lightning-card  variant="Narrow" >
+                                <lightning-card style="width:50px;" variant="Narrow" >
                                     <div class="slds-p-horizontal_small">
                                         <template if:true={data.Question_Text__c}>
                                             Question - <lightning-formatted-text value={data.Question_Text__c}  target="_blank" ></lightning-formatted-text><br/><br/>
@@ -65,16 +65,16 @@
                     </div>
                 </div>
             </lightning-layout-item>
-            <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box">
-                <div class="slds-box slds-p-around_medium slds-text-align_center">
-                    <div id="InProgress" style="height:100%" data-role="drop-target" ondrop={handleDropAdd} ondragenter={handleDragEnter} ondragover={handleDragOver} ondragleave={handleDragLeave}>
+            <lightning-layout-item style="height:750px;" vertical-align="stretch" flexibility="auto" size="6"  padding="around-small" class="custom-box">
+                <div class="slds-scrollable--y slds-box slds-p-around_medium slds-text-align_center">
+                    <div id="InProgress" data-role="drop-target" ondrop={handleDropAdd} ondragenter={handleDragEnter} ondragover={handleDragOver} ondragleave={handleDragLeave}>
                 <div class="slds-text-heading_large">Survey Questions</div>
                
                     <template if:true={questionAdded}>
                         <template for:each={questionAdded} for:item="data">
-                            <div key={data.Id} draggable="true" id={data.Id} data-id={data.Id} ondragstart={taskDragStart} ondragend={taskDragEnd} class="slds-p-around_small">
-                                <lightning-card style="width: 50px;"  variant="Narrow" >
-                                    <div class="slds-p-horizontal_small">
+                            <div  key={data.Id} draggable="true" id={data.Id} data-id={data.Id} ondragstart={taskDragStart} ondragend={taskDragEnd} class="slds-p-around_small">
+                                <lightning-card class="questionDesign"   variant="Narrow"  >
+                                    <div class="slds-p-horizontal_small questionDesign">
                                         <template if:true={data.Question_Text__c}>
                                             Question - <lightning-formatted-text value={data.Question_Text__c} target="_blank" ></lightning-formatted-text><br/><br/>
                                         </template>

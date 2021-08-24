@@ -1,7 +1,14 @@
 <apex:page showHeader="false">
     <apex:includeLightning />
+    <style>
+        body {
+            background-color: #39603D;
+           
+        }
+              
+    </style>
     
-    <div id="lwccontainer"> </div>
+    <div id="lwccontainer" > </div>
     <script>
         $Lightning.use("c:AppForVF",function(){
             $Lightning.createComponent("c:questionPage",{},"lwccontainer",
@@ -10,4 +17,5 @@
                 });    
         });
     </script>
+   
  </apex:page>
