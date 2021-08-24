@@ -114,7 +114,11 @@ public without sharing class SurveyQuestion {
     @AuraEnabled(cacheable=true)
     public static List<Question_Response__c> reportDB(Id surveyId){
         try {
+<<<<<<< HEAD
             List<Question_Response__c> questionResponseList = [Select Id,Survey_Response__r.Survey__r.Survey_Name__c,Survey_Response__r.Employee__r.Name,Question_ID__r.Question_Text__c,Question_ID__r.Response_Type__c,Response__c from Question_Response__c Where Survey_Response__r.Survey__c=: surveyId and Survey_Response__r.Employee__c!=null LIMIT 50];
+=======
+            List<Question_Response__c> questionResponseList = [Select Id,Survey_Response__r.Survey__r.Survey_Name__c,Survey_Response__r.Employee__r.Name,Question_ID__r.Question_Text__c,Response__c from Question_Response__c Where Survey_Response__r.Survey__c=: surveyId and Survey_Response__r.Employee__c!=null LIMIT 50];
+>>>>>>> eb2b2577d581d3c0213906034c11f5eb86f02279
             system.debug(questionResponseList);
             return questionResponseList;
             

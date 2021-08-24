@@ -23,8 +23,6 @@
         </div>
     </div>
     </template>
-
-
         <template if:true={editTemplate}>  
             <div class="slds-modal slds-fade-in-open slds-backdrop">  
                 <div class="slds-modal__container">  
@@ -46,19 +44,15 @@
                     <div class="slds-modal__footer"> 
                         <lightning-button icon-name="utility:check" label="Update" variant="brand" class="slds-float_left" onclick={editResponseTemplate}></lightning-button> 
                         <lightning-button icon-name="utility:close" label="Cancel" variant="brand" onclick={closeModal}> </lightning-button> 
-                    
                     </div>  
                 </div>  
             </div>  
           </template>
-
-
           <!-- Question box for edit response-->
           <div if:true={editValues} class="slds-box">
             <lightning-card class="title" >
                 <h1 class="h1" >{title}</h1><br><br>
                 <ul>
-                    
                     <template for:each={lstQuestions} for:item="que" for:index="indexvar">
                         <li key={que.Question_ID__c}>
                             <div class="slds-p-around_medium lgc-bg">
@@ -71,13 +65,9 @@
                     </template>
                         <lightning-button label="SAVE"  type="submit" variant="brand" onclick={saveHandler}></lightning-button>
                         <lightning-input type="toggle" label="See other's Response"  message-toggle-active="" message-toggle-inactive=""  onclick={toggleClick} variant="brand" class="slds-float_right" ></lightning-input>              
-                    
                 </ul>
-                
             </lightning-card> 
           </div>
-
-
           <!--Question box for first time response-->
     <div if:false={editTemplate}>
         <template if:true={showForm}>
@@ -106,8 +96,6 @@
                 </lightning-card> 
             </div>
         </template>
-
-
         <!--Table display template-->
         <template if:true={wantResponse}>  
             <template if:true={showTable}>
@@ -125,8 +113,6 @@
            
             </template>
         </template>
-
-
         <!--Response saved message-->
         <template if:false={wantResponse}>
             <template if:true={showTable}>
@@ -147,7 +133,6 @@
             </template>
         </template> 
     </div>
-
 </template>
 <template if:false={Active}>
     <div class="slds-modal slds-fade-in-open slds-backdrop">  
@@ -166,5 +151,4 @@
     </div>  
 </template>
 </div>
-
 </template>

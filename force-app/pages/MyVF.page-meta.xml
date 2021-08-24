@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>52.0</apiVersion>
+<<<<<<< HEAD
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>My_VF</label>
+=======
+    <availableInTouch>True</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <label>Send Email</label>
+>>>>>>> eb2b2577d581d3c0213906034c11f5eb86f02279
     <packageVersions>
         <majorNumber>1</majorNumber>
         <minorNumber>7</minorNumber>

@@ -68,81 +68,6 @@ export default class QuestionSelect extends LightningElement {
         });
     }
         
-    // handleClick(){
-            
-    //     var el = this.template.querySelector('lightning-datatable');
-    //     var selected = el.getSelectedRows();
-    //     console.log(selected.length);
-        
-    //     addToSurvey({SurveyId:this.recordId,questionList:selected}).then(result =>{
-    //         this.data= result;
-    //        window.location.reload();
-            
-    //     })
-    // //     .catch(error => {
-    // //         console.log('error'+error.message);
-    // //     });
-    // // }
-    // //get page reference
-    // @wire(CurrentPageReference) pageRef;
-    
-    // constructor() {
-    //     super();
-    //     //register dragover event to the template
-    //     this.template.addEventListener('dragover', this.handleDragOver.bind(this));
-    // }
-    
-    // //retrieve account records from database via Apex class
-    // // @wire(questionSelect,{surveyId:'$recordId'}) wiredRecordsMethod({ error, data }) {
-    // //     if (data) {
-    // //         console.log(JSON.stringify(data));
-    // //         this.lstQue  = data;
-            
-    // //     } else if (error) {
-    // //         this.error = error;
-            
-    // //     }
-        
-    // //}
-
-    // //when drag is start this method fires
-    // handleDragStart(event) {
-    //     event.dataTransfer.dropEffect = 'move';
-        
-    //     //retrieve AccountId from div
-    //     questionSelectedId = event.target.dataset.item;
-    //     //console.log('event.target.dataset.item=' + event.target.dataset.item);
-
-    //     //loop the array, match the AccountId and retrieve the account record
-    //     for(i=0; i<this.lstQue.data.length; i++) {
-    //         if(lstQue!==null && questionSelectedId === this.lstQue.data[i].Id){
-    //             selectedQuestion = this.lstQue.data[i]; 
-    //             console.log(selectQuestion);              
-    //         }                                                         
-    //     } 
-
-    //     //fire an event to the subscribers
-    //     //fireEvent(this.pageRef, 'selectedAccountDrop', selectedAccount);
-    // }
-
-    // handleDragOver(event){
-    //     event.dataTransfer.dropEffect = 'move';
-    //     event.preventDefault();       
-    // }    
-
-    // drag(event){
-    //     event.dataTransfer.setData("divId", event.target.id);
-    // }
-    // allowDrop(event){
-    //     event.preventDefault();
-    // }
-    // drop(event){
-    //     event.preventDefault();
-    //     var divId = event.dataTransfer.getData("divId");
-    //     var draggedElement = this.template.querySelector('#' +divId);
-    //     draggedElement.classList.add('completed'); 
-    //     event.target.appendChild(draggedElement);
-    // }
     taskDragStart(event){
         const taskId = event.target.id.substr(0,18);
         //window.alert(taskId);
@@ -167,18 +92,6 @@ export default class QuestionSelect extends LightningElement {
             console.log(taskNewStatus);
         }
        
-        //window.alert(columnUsed + ' & '+ taskNewStatus);
-        // const columnUsed = event.currentTarget.id;
-        // console.log(event.target.id +'id');
-        // console.log(columnUsed.includes('InProgress'));
-        // console.log(columnUsed.includes('newTask'));
-        // if(columnUsed.includes('InProgress')){
-        //     taskNewStatus = 'In Progress';
-        // }else if(columnUsed.includes('newTask')){
-        //     taskNewStatus = 'Not Started';
-        // }else if(columnUsed.includes('completed')){
-        //     taskNewStatus = 'Completed';
-        // }
         this.addSurvey(this.dropTaskId,taskNewStatus);
         let draggableElement = this.template.querySelector('[data-role="drop-target"]');
         draggableElement.classList.remove('over');
