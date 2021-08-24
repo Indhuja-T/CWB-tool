@@ -1,16 +1,6 @@
-<apex:page controller="Email_Class" showHeader="false">
+<apex:page controller="Email_Class" stylesheet = "True" showHeader="True">
     <apex:includeLightning />
-    <style>
-        body {
-            background-color: #39603D;
-           
-        }
-              
-    </style>
-    <p>
-        Test Email Sending:
-    </p>
-    <apex:form >
+    <apex:form style="border-style:solid;border-width:2px;">
          <apex:outputLabel value="Profile Name " for="To"/>
           <apex:selectList size="1" value="{!selectedProfilename}" label="Profile Name:"> 
         <apex:selectOptions value="{!selectedEmail}"/>  
