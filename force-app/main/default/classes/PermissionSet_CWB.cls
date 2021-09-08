@@ -72,6 +72,23 @@ public with sharing class PermissionSet_CWB {
         system.debug(csvfile);
         return csvfile;
     }
+    @AuraEnabled
+    public static String getPermissionSetModifiedDetails() {
+    	List<PermissionSet> PermissionSets = RetrieveData.getPermissionSetModifiedDetail();
+        String Headers = 'Label, CreatedDate, CreatedBy, LastModifiedDate, LastModifiedBy';        
+        Headers += '\n';
+        String csvString = Headers;
+        for (PermissionSet ps : PermissionSets){
+            csvString += ps.Label + ',';
+            csvString += ps.CreatedDate + ',';
+            csvString += ps.CreatedBy.Name + ',';
+            csvString += ps.LastModifiedDate + ',';
+            csvString += ps.LastModifiedBy.Name + ',';
+            csvString += '\n';
+        }
+        System.debug(csvString);
+        return csvString;
+    }
     
     @AuraEnabled
     public static String getPermissionSetAssignmentDetails() {

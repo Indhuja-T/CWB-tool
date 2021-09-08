@@ -118,8 +118,25 @@ public with sharing class getinfo {
     public static List<PermissionSet> getPermissionSets (String recordId){
         return RetrieveData.getPermissionSet(recordId);       
     }
-
+    @AuraEnabled
+    public static String modifiedprofiledetail() {
+        List<Profile> modifiedprofiledetail = RetrieveData.getModifiedprofiledetail();
+        String Headers = 'Name, CreatedDate, CreatedBy, LastModifiedDate, LastModifiedBy';        
+        Headers += '\n';
+        String csvString = Headers;
+        for (Profile ps : modifiedprofiledetail){
+            csvString += ps.Name + ',';
+            csvString += ps.CreatedDate + ',';
+            csvString += ps.CreatedBy.Name + ',';
+            csvString += ps.LastModifiedDate + ',';
+            csvString += ps.LastModifiedBy.Name + ',';
+            csvString += '\n';
+        }
+        System.debug(csvString);
+        return csvString;	
+    }
 }
+
     
 
 

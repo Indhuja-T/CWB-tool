@@ -91,5 +91,17 @@ public class RetrieveData {
                                                      AND Parent.Label IN :permissionSets]; 
         return PermissionSetlist; 
     }
-   
+    public static List<PermissionSet> getPermissionSetModifiedDetail (){
+        List<PermissionSet> PermissionSetlist  = [SELECT Label, Name, CreatedDate, CreatedBy.Name, LastModifiedDate, 
+                                                  LastModifiedBy.Name FROM PermissionSet 
+                                                  where IsOwnedByProfile = false]; 
+        return PermissionSetlist; 
+    }
+    
+    public static List<Profile> getModifiedprofiledetail (){
+        List<Profile> modifiedprofiledetail = [SELECT Name, createddate,CreatedBy.Name,
+                                                  lastmodifieddate,LastModifiedBy.Name 
+                                                  FROM Profile];
+    	return modifiedprofiledetail; 
+    }
 }
