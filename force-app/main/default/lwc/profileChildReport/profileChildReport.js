@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from "lwc";
 import getprofiles from "@salesforce/apex/getinfo.getprofiles";
 import GetObjectProfilePermission from "@salesforce/apex/getinfo.GetObjectProfilePermission";
+import modifiedprofiledetail from "@salesforce/apex/getinfo.modifiedprofiledetail";
 
 export default class ObjectChildReport extends LightningElement {
   lstAccounts = [
@@ -48,32 +49,29 @@ export default class ObjectChildReport extends LightningElement {
   }
 
   Download(event) {
-    console.log("here");
+    
 
-    var Profile = ["System Administrator", "Marketing User", "Standard User"];
-    var objects = ["Account", "Contact"];
-    GetObjectProfilePermission({ objects: objects, Profiles: Profile })
-      .then((result) => {
-        console.log("here2");
-        console.log(result);
-        var blob = new Blob([result], { type: "application/octet-stream" });
-        if (window.navigator.msSaveOrOpenBlob) {
-          window.navigator.msSaveBlob(blob, "DemoCSV.csv");
-        } else {
-          var a = window.document.createElement("a");
-
-          a.href = window.URL.createObjectURL(blob, {
-            type: "text/csv"
-          });
-          a.download = "DemoCSV.csv";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }
-      })
-      .catch((error) => {
-        console.log("error" + error.message);
-      });
+    //var Profile = ["System Administrator", "Marketing User", "Standard User"];
+    //var objects = ["Account", "Contact"];
+    // var key = event.currentTarget.getAttribute("data-item");
+    // console.log(key);
+    // if (key == 1) {
+    //   GetObjectProfilePermission({ objects: objects, Profiles: Profile })
+    //     .then((result) => {
+    //       DownloadCSV(data);
+    //     })
+    //     .catch((error) => {
+    //       console.log("error" + error.message);
+    //     });
+    // } else if (key == 4) {
+    //   modifiedprofiledetail()
+    //     .then((data) => {
+    //       DownloadCSV(data);
+    //     })
+    //     .catch((error) => {
+    //       console.log("error " + error.message);
+    //     });
+    // }
   }
 
   get opt() {
@@ -107,6 +105,22 @@ export default class ObjectChildReport extends LightningElement {
     }
   }
   handleValueChange(event) {
-    console.log(JSON.stringify(event.detail));
+    //console.log(JSON.stringify(event.detail));
+  }
+}
+function DownloadCSV(data) {
+  var blob = new Blob([data], { type: "application/octet-stream" });
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveBlob(blob, "DemoCSV.csv");
+  } else {
+    var a = window.document.createElement("a");
+
+    a.href = window.URL.createObjectURL(blob, {
+      type: "text/csv"
+    });
+    a.download = "DemoCSV.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 }

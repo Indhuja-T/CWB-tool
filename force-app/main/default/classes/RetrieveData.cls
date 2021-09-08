@@ -88,9 +88,8 @@ public class RetrieveData {
     public static List<FieldPermissions> getPermissionSet (List<String> objects, List<String> permissionSets){
         List<FieldPermissions> PermissionSetlist  = [SELECT Parent.Name, Field,PermissionsRead,PermissionsEdit 
                                                      FROM FieldPermissions WHERE SObjectType IN :objects 
-                                                     AND Parent.Name IN :permissionSets]; 
+                                                     AND Parent.Label IN :permissionSets]; 
         return PermissionSetlist; 
     }
-    
-    
+   
 }

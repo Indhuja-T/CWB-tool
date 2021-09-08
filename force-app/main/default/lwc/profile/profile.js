@@ -1,6 +1,8 @@
 import { LightningElement, track, wire } from "lwc";
 //import getprofiles from "@salesforce/apex/getinfo.getprofiles";
 import GetObjectProfilePermission from "@salesforce/apex/getinfo.GetObjectProfilePermission";
+import modifiedprofiledetail from "@salesforce/apex/getinfo.modifiedprofiledetail";
+
 
 export default class Profile extends LightningElement {
   selectedProfiles = [];
@@ -72,39 +74,40 @@ export default class Profile extends LightningElement {
 
   Download(event) {
     var key = event.currentTarget.getAttribute("data-item");
+    console.log(key);
     if (key == 1) {
-      // 1st column call function
-      GetObjectProfilePermission({
-        objects: this.selectedObjects,
-        Profiles: this.selectedProfiles
-      })
+      GetObjectProfilePermission({ objects: objects, Profiles: Profile })
         .then((result) => {
-          console.log("here2");
-          console.log(result);
-          var blob = new Blob([result], { type: "application/octet-stream" });
-          if (window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveBlob(blob, "DemoCSV.csv");
-          } else {
-            var a = window.document.createElement("a");
-
-            a.href = window.URL.createObjectURL(blob, {
-              type: "text/csv"
-            });
-            a.download = "DemoCSV.csv";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          }
+          DownloadCSV(data);
+        })
+        .catch((error) => {
+          console.log("error" + error.message);
+        });
+    } else if (key == 4) {
+      modifiedprofiledetail()
+        .then((data) => {
+          DownloadCSV(data);
         })
         .catch((error) => {
           console.log("error " + error.message);
         });
-    } else if (key == 2) {
-      //call function
     }
+  }
+}
 
-    console.log("selectedProfiles", this.selectedProfiles);
-    console.log("selectedObjects", this.selectedObjects);
+function DownloadCSV(data) {
+  var blob = new Blob([data], { type: "application/octet-stream" });
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveBlob(blob, "DemoCSV.csv");
+  } else {
+    var a = window.document.createElement("a");
 
+    a.href = window.URL.createObjectURL(blob, {
+      type: "text/csv"
+    });
+    a.download = "DemoCSV.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 }

@@ -45,7 +45,6 @@ public with sharing class PermissionSet_CWB {
                 Boolean Nillable = field.getDescribe().isNillable();
                 Boolean Updateable = field.getDescribe().isUpdateable();           
                 String key = o + '.' + fieldname;
-                //System.debug('+++++++++++++ '+fieldname+String.valueOf(Permissionable)+String.valueOf(Nillable)+String.valueOf(Updateable));
                 for(String ps: PermissionSets){
                     system.debug(ps);
                     if (objectpermissions.get(key)!=null && objectpermissions.get(key).get(ps)!=null){                        

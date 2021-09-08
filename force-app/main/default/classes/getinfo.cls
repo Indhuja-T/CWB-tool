@@ -9,11 +9,7 @@ public with sharing class getinfo {
         
         return RetrieveData.getobj();
     }
-    /*
-public static List<ObjectPermissions> objectProfilePermisions (List<String> objects, List<String> Profiles){
-return [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsRead, PermissionsEdit, PermissionsDelete, PermissionsModifyAllRecords, PermissionsViewAllRecords FROM ObjectPermissions WHERE sObjectType IN :objects AND Parent.Profile.Name IN :Profiles order by SobjectType];    
-}*/
-    
+      
     @AuraEnabled(cacheable=true)
     public static  List<AppMenuItem> getappperm(String recordId){
         
@@ -117,52 +113,14 @@ return [SELECT Parent.Profile.Name, SobjectType, PermissionsCreate, PermissionsR
         return csvfile;
     }
 
-    //---------permission set functions (Filter)
 
     @AuraEnabled(cacheable=true)
     public static List<PermissionSet> getPermissionSets (String recordId){
         return RetrieveData.getPermissionSet(recordId);       
     }
 
-    
-    //Queries with Tooling Api
-    
-    /* @AuraEnabled(cacheable=true)
-public static List<WorkflowRule> getworkflow (String recordId){
-List<WorkflowRule> workflow = [SELECT Id, Name, TableEnumOrId, Metadata from WorkflowRule ]; 
-return workflow;*/
-    
-    /* @AuraEnabled(cacheable=true)
-public static List<WorkflowAlert> getworkflowalert (String recordId){
-List<WorkflowAlert> workflowalert = [SELECT Id, FullName, Description, SenderType from WorkflowAlert  ]; 
-return workflowalert;*/
-    
-    /* @AuraEnabled(cacheable=true)
-public static List<WorkflowTask> getworkflowtask (String recordId){
-List<WorkflowTask> workflowtask = [SELECT id, FullName, Priority, Status, Subject from WorkflowTask   ]; 
-return workflowtask;*/
-    
-    /* @AuraEnabled(cacheable=true)
-public static List<WorkflowFieldUpdate> getworkflowfield (String recordId){
-List<WorkflowFieldUpdate> workflowfield = [SELECT id, FullName, SourceTableEnumOrId, EntityDefinitionId from WorkflowFieldUpdate  ]; 
-return workflowfield;*/
-    
-    /* @AuraEnabled(cacheable=true)
-public static List<WorkflowOutboundMessage> getworkflowoutboundmsg (String recordId){
-List<WorkflowOutboundMessage> workflowoutboundmsg = [SELECT id, FullName, Name, EntityDefinitionId, IntegrationUserId from WorkflowOutboundMessage   ]; 
-return workflowoutboundmsg;*/
-    
-    /* @AuraEnabled(cacheable=true)
-public static List<LightningComponentBundle> getlwc (String recordId){
-List<LightningComponentBundle> lwc = [SELECT Id, Description, FullName, Language, MasterLabel, TargetConfigs FROM LightningComponentBundle]; 
-return lwc;*/
-    
-    /* @AuraEnabled(cacheable=true)
-public static List<AuraDefinitionBundle> getaura (String recordId){
-List<AuraDefinitionBundle> aura = [SELECT Id, MasterLabel, DeveloperName, APIVersion, CreatedBy.Name, LastModifiedBy.Name, CreatedDate, LastModifiedDate FROM AuraDefinitionBundle]; 
-return aura;*/
-    
 }
+    
 
 
 

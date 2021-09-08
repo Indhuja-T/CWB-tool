@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from "lwc";
 import getPermissionsForObjects from "@salesforce/apex/PermissionSet_CWB.getPermissionsForObjects";
 import getPermissionSetAssignmentDetails from "@salesforce/apex/PermissionSet_CWB.getPermissionSetAssignmentDetails";
+import getPermissionSetModifiedDetails from "@salesforce/apex/PermissionSet_CWB.getPermissionSetModifiedDetails";
 export default class ProPermissionChildReport extends LightningElement {
   selectedPermissionsSet = [];
   selectedObjects = [];
@@ -24,8 +25,8 @@ export default class ProPermissionChildReport extends LightningElement {
     },
     {
       Id: 4,
-      Title: "Profile Modified Detail",
-      Description: "Explore who created or modified Profile."
+      Title: "Permission Set Modified Detail",
+      Description: "Explore who created or modified Permission Set."
     },
     {
       Id: 5,
@@ -94,10 +95,19 @@ export default class ProPermissionChildReport extends LightningElement {
         .catch((error) => {
           console.log("error " + error.message);
         });
+    } else if (key == 4) {
+      getPermissionSetModifiedDetails()
+        .then((data) => {
+          
+          DownloadCSV(data);
+        })
+        .catch((error) => {
+          console.log("error " + error.message);
+        });
     }
 
-    console.log("selectedProfiles", this.selectedPermissionsSet);
-    console.log("selectedObjects", this.selectedObjects);
+    //console.log("selectedProfiles", this.selectedPermissionsSet);
+    //console.log("selectedObjects", this.selectedObjects);
   }
 }
 function DownloadCSV(data) {
