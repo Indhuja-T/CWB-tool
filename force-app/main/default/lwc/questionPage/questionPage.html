@@ -17,7 +17,17 @@
                     <lightning-input class="input" name="Employee_Name" type="text" id="Employee_Name" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
                 <label class="label-input" for="Email">Email</label>
                     <lightning-input class="input" name="Email" type="email" id="Email" val={userDetails} onchange={userChangeHandler} ></lightning-input><br>
-                <lightning-button class="slds-button slds-p-left_xx-small" label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br>
+                
+                <lightning-button class="slds-button slds-p-left_xx-small" disabled={showStartBtn} variant="brand" label="Verify User" onclick={handleVerify}></lightning-button><br><br>
+                <template if:true={pressedSend}>
+                <template if:true={showStartBtn}>
+                    <h1 class="label-input">Please Check Your Mail.OTP is valid for: {timeVal}</h1><br><br>   
+                </template>
+               
+                <label class="label-input"  for="OTP">OTP</label><br>
+                <lightning-input class="input" id="OTP" type="Number" onchange={handlePwdChange} ></lightning-input>
+                <lightning-button class="slds-button slds-p-left_xx-small" disabled={confirmDisabler} label="Confirm"  type="submit" onclick={confirmHandler} variant="brand"></lightning-button><br>
+            </template>
                
             </lightning-card>
         </div>
@@ -89,7 +99,7 @@
                                     </div>
                                 </li>
                             </template>
-                                <lightning-button class="button" label="SAVE" key={savekey} type="submit" variant="brand" onclick={saveHandler}></lightning-button>
+                                <lightning-button  label="SAVE" key={savekey} type="submit" variant="brand" onclick={saveHandler}></lightning-button>
                                 <lightning-input type="toggle" key={toggleKey} label="See other's Response"  message-toggle-active="" message-toggle-inactive=""  onclick={toggleClick} variant="brand" class="slds-float_right" ></lightning-input>  
                         </template>
                     </ul>
