@@ -7,6 +7,9 @@ import getSurveyId from '@salesforce/apex/SurveyQuestion.getSurveyId'
 //import getUserId from '@salesforce/apex/SurveyQuestion.getUserId'
 import editResponse from '@salesforce/apex/SurveyQuestion.editResponse'
 import matchUserID from '@salesforce/apex/SurveyQuestion.matchUserID'
+import testGenerate from'@salesforce/apex/SurveyQuestion.testGenerator'
+import checkOTP from '@salesforce/apex/SurveyQuestion.checkOTP'
+import clearOTP from '@salesforce/apex/SurveyQuestion.clearOTP'
 
 
 const COLS = [
@@ -49,6 +52,9 @@ export default class QuestionPage extends LightningElement {
             console.log('error'+error.message);
         });        
     }
+   
+    
+ 
     getTitle(){
         if(this.lstQuestions){
             console.log(this.lstQuestions[0].Survey_ID__r.Survey_Name__c);
@@ -116,12 +122,66 @@ export default class QuestionPage extends LightningElement {
     @track yesResponse = false;
     @track userDetails ={};
     @track title;
-    
+    @track pass;
+    @track pwd;
+    @track pressedSend=false;
+    @track showStartBtn=false;
+    @track confirmDisabler=false;
+    @track timeVal = '5:00';
     columns = COLS;
    
    
     @track n=0;
     // Check whether questions are loaded
+    async handleVerify(){
+        console.log('Yes in verify');
+        this.pressedSend = true;
+        this.showStartBtn = true;
+        var parentThis = this;
+        var minute = 4;
+        var sec = 60;
+        var interval= setInterval(function () {
+            parentThis.timeVal = minute + " : " + sec;   
+            
+            sec--;
+            if (sec == '00'){
+               minute--;
+               sec = 60;
+               if(  minute < 0){              
+                clearInterval(interval);
+               }
+            }
+         }, 1000);
+         
+             
+       setTimeout(() => {
+        this.showStartBtn = false;
+        this.timeVal = '0:00';
+        this.confirmDisabler = true;
+        clearOTP({empID:this.userDetails['Employee_ID']});
+       }, 300000);
+        await  matchUserID({empID:this.userDetails['Employee_ID'],name:this.userDetails['Employee_Name'],email:this.userDetails['Email']}).then(result =>{
+            this.currentUserID = result;
+            console.log(this.currentUserID);
+          
+        })
+        .catch(error => {
+            console.log('error'+error.message);
+        }); 
+
+       testGenerate({empID:this.userDetails['Employee_ID']})
+       
+    //    sendMail({pwd:this.pwd,name:this.userDetails['Employee_Name'],emailId:this.userDetails['Email']}).then(result=>{
+    //     console.log(this.pwd);
+    //     console.log(result);
+    //    }).catch(error =>{
+    //     console.log('error'+error.message);
+    //    })
+   }
+   handlePwdChange(event){
+       this.pass=event.target.value;
+       console.log(this.pass);
+   }
     get responseReceived(){
         if(this.lstQuestions){
             return true;
@@ -164,36 +224,71 @@ export default class QuestionPage extends LightningElement {
         this.editTemplate=false;
         this.showForm=false;
     }
+    showToast(){
+        const event = new ShowToastEvent({
+            title: 'Toast message',
+            message: 'Toast Message',
+            variant: 'success',
+            mode: 'dismissable'
+        });
+        this.dispatchEvent(event);
+       }
     //function to store user details
     async confirmHandler(event) {
-        this.showUser=false;
+        if(this.pass){
+        await checkOTP({empID:this.userDetails['Employee_ID'],pwd:this.pass}).then(result =>{
+            this.verify = result;
+            console.log(this.verify+'verify');
+        })
+        .catch(error =>{
+            console.log('error'+error);
+        })
+        
+        if(this.verify){
+            clearOTP({empID:this.userDetails['Employee_ID']});
+            this.showUser=false;
         this.showForm=true;
-        await  matchUserID({empID:this.userDetails['Employee_ID'],name:this.userDetails['Employee_Name'],email:this.userDetails['Email']}).then(result =>{
-            this.currentUserID = result;
-            console.log(this.currentUserID);
-          
-        })
-        .catch(error => {
-            console.log('error'+error.message);
-        });   
-        //Returns already entered user data for survey
-        editResponse({UserCode:this.currentUserID,SurveyCode:this.SurveyCode}).then(result =>{
-            this.lstAnswers = result;
-            console.log('baba');
-            console.log(this.lstAnswers.length);
-            console.log(this.lstAnswers);
-            if(this.lstAnswers.length>0){
-                this.editTemplate = true;
-                console.log('hi');
-            }
-            else{
-                this.editTemplate = false;
-                console.log('Hello');
-            } 
-        })
-        .catch(error => {
-            console.log('error'+error.message);
-        });     
+        this.pwd="";
+        this.pass="";
+            console.log("Password Matched");
+            console.log(this.userDetails['Email']);
+            // await  matchUserID({empID:this.userDetails['Employee_ID'],name:this.userDetails['Employee_Name'],email:this.userDetails['Email']}).then(result =>{
+            //     this.currentUserID = result;
+            //     console.log(this.currentUserID);
+              
+            // })
+            // .catch(error => {
+            //     console.log('error'+error.message);
+            // });   
+            //Returns already entered user data for survey
+            editResponse({UserCode:this.currentUserID,SurveyCode:this.SurveyCode}).then(result =>{
+                this.lstAnswers = result;
+                console.log('baba');
+                console.log(this.lstAnswers.length);
+                console.log(this.lstAnswers);
+                if(this.lstAnswers.length>0){
+                    this.editTemplate = true;
+                    console.log('hi');
+                }
+                else{
+                    this.editTemplate = false;
+                    console.log('Hello');
+                } 
+            })
+            .catch(error => {
+                console.log('error'+error.message);
+            });     
+        }
+        else{
+            console.log("OTP Mismatch");
+           alert('Please Check the OTP sent using mail.');
+        }
+    }
+    else{
+        alert('Please enter the OTP');
+    }
+        
+        
      }
 
      //Handles input change in user info input

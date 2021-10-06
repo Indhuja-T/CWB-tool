@@ -1,16 +1,9 @@
 .title{
     font-weight: bold;
-<<<<<<< HEAD
 	border-bottom: 2px solid #ddd;
 	margin-bottom: 20px;
 	font-size: 15px;
 	padding-bottom: 3px;
-=======
-    border-bottom: 2px solid #ddd;
-    margin-bottom: 20px;
-    font-size: 15px;
-    padding-bottom: 3px;
->>>>>>> eb2b2577d581d3c0213906034c11f5eb86f02279
 }
 .slds-modal__header{
     background-color: cornflowerblue;
@@ -32,20 +25,13 @@
 }
 .employee{
     border-color: white;
-<<<<<<< HEAD
 	border-radius:4px;
 	box-sizing: border-box;
 	box-shadow: 4px solid white;
-=======
-    border-radius:4px;
-    box-sizing: border-box;
-    box-shadow: 4px solid white;
->>>>>>> eb2b2577d581d3c0213906034c11f5eb86f02279
 }
 .label-input{
     -webkit-text-fill-color:darkcyan;
     font-family:Arial, Helvetica, sans-serif;
-<<<<<<< HEAD
 	margin-left: 10px;
     font-size:medium;
     font-weight:bold;
@@ -68,28 +54,6 @@
 	margin-bottom: 30px;
 }
 
-=======
-    margin-left: 10px;
-    font-size:medium;
-    font-weight:bold;
-}
-.input{
-    font-family: Georgia, "Times New Roman", Times, serif;
-    background: rgba(255,255,255,.1);
-    border: none;
-    border-radius: 4px;
-    font-size: 15px;
-    margin-left: 10px;
-    margin-right:10px;
-    outline: 0;
-    padding: 10px;
-    width: 90%;
-    background-color:#DAD3D4;
-    color:black;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
-}
->>>>>>> eb2b2577d581d3c0213906034c11f5eb86f02279
 .input:hover{
     background:#3C403D;
 }
@@ -100,7 +64,6 @@ font-style:italic;
 color:black;
 text-align:center;
 text-decoration:underline;
-<<<<<<< HEAD
 
 }
 .custombox{
@@ -116,19 +79,3 @@ text-decoration:underline;
 .color{
 	background-color:#DADED4; 
 }
-=======
-}
-.custombox{
-    padding: 1rem;
-    border: 1px solid #D8DDE6;
-}
-.button{
-    padding-left: 10px;
-    color:#39603D;
-    background-color: white;
-    border: 2px solid #4CAF50; /* Green */
-}
-.color{
-    background-color:#DADED4; 
-}
->>>>>>> eb2b2577d581d3c0213906034c11f5eb86f02279

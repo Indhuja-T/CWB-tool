@@ -114,11 +114,7 @@ public without sharing class SurveyQuestion {
     @AuraEnabled(cacheable=true)
     public static List<Question_Response__c> reportDB(Id surveyId){
         try {
-<<<<<<< HEAD
-            List<Question_Response__c> questionResponseList = [Select Id,Survey_Response__r.Survey__r.Survey_Name__c,Survey_Response__r.Employee__r.Name,Question_ID__r.Question_Text__c,Question_ID__r.Response_Type__c,Response__c from Question_Response__c Where Survey_Response__r.Survey__c=: surveyId and Survey_Response__r.Employee__c!=null LIMIT 50];
-=======
-            List<Question_Response__c> questionResponseList = [Select Id,Survey_Response__r.Survey__r.Survey_Name__c,Survey_Response__r.Employee__r.Name,Question_ID__r.Question_Text__c,Response__c from Question_Response__c Where Survey_Response__r.Survey__c=: surveyId and Survey_Response__r.Employee__c!=null LIMIT 50];
->>>>>>> eb2b2577d581d3c0213906034c11f5eb86f02279
+            List<Question_Response__c> questionResponseList = [Select Id,Survey_Response__r.Survey__r.Survey_Name__c,Survey_Response__r.Employee__r.Name,Question_ID__r.Question_Text__c,Question_ID__r.Response_Type__c,Response__c from Question_Response__c Where Survey_Response__r.Survey__c=: surveyId and Survey_Response__r.Employee__c!=null ];
             system.debug(questionResponseList);
             return questionResponseList;
             
@@ -233,5 +229,123 @@ public without sharing class SurveyQuestion {
             throw new AuraHandledException(e.getMessage());
         }
     }
-    
+//Random Number Generator
+@AuraEnabled
+
+public static String testGenerate(){
+String charString = '0123456789';
+String randomNew = '';
+while (randomNew.length() < 6)
+
+{
+Integer changeInt = Math.mod(Math.abs(Crypto.getRandomInteger()), charString.length());
+randomNew += charString.substring(changeInt,changeInt +1);
+}
+    system.debug(randomNew);       
+return randomNew ;
+}
+
+    @AuraEnabled
+     public static string createEmailBody(string pwd,string name){
+        EmailTemplate tempID = [SELECT Id,Subject,Body FROM EmailTemplate WHERE name =:'Captacha Mail'];
+        system.debug(tempID);
+        String emailBody = tempID.Body;
+        emailBody = emailBody.replace('{!randomPwd}',pwd);
+        emailBody = emailBody.replace('{!Name}',name);
+        system.debug(emailBody);
+        return emailBody;
+    }
+
+
+//Function to Send the email//
+@AuraEnabled
+    public static boolean  sendMail(string pwd,string name,string emailId){
+
+// Sending Email using MassEmailMeassage Method   
+       /* List<User> mailReceivers=[Select Email,Id,User_Code__c from User where Profile.Id =: selectedProfilename];
+        List<Id> mailReceiverIds= new List<Id>();
+        for(User u:mailReceivers) {
+            mailReceiverIds.add(u.id);
+        }*/
+        Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+        string[] toAddresses = (emailId).split(';',0);
+        message.setToAddresses(toAddresses);
+        system.debug(ToAddresses);
+        message.setSenderDisplayName('System Admin');
+        message.setTargetObjectId('0055g000009oHbuAAE');
+        message.setTreatTargetObjectAsRecipient(false);
+        system.debug(pwd);
+        system.debug(name);
+        system.debug(emailId);
+        String templ = SurveyQuestion.createEmailBody(pwd,name);
+        EmailTemplate emailSurveyTemplate=[Select Id,Subject,body from EmailTemplate where name =:'OTP Mail'];
+        system.debug(emailSurveyTemplate);
+        string originalTempBody= emailSurveyTemplate.body;
+        emailSurveyTemplate.body = templ;
+        update emailSurveyTemplate;
+
+        message.setTemplateId(emailSurveyTemplate.id);
+        message.setSaveAsActivity(false);
+        Messaging.sendEmail(new Messaging.SingleEmailMessage[] {message});
+        //emailSurveyTemplate.body = originalTempBody;
+        //update emailSurveyTemplate;
+        return true;
+        
+        
+    }
+    @AuraEnabled
+    public static void testGenerator(string empID){
+String charString = '0123456789';
+String randomNew = '';
+while (randomNew.length() < 6)
+
+{
+Integer changeInt = Math.mod(Math.abs(Crypto.getRandomInteger()), charString.length());
+randomNew += charString.substring(changeInt,changeInt +1);
+}
+    system.debug(randomNew); 
+    List<Employee__c> currentUser=[Select Id,Email__c,Name,Employee_ID__c,OTP__c from Employee__c where Employee_ID__c=:empID ];
+        currentUser[0].OTP__c = randomNew;
+        system.debug(currentUser[0].Id);
+        update currentUser[0];
+        Map<String, Object> params = new Map<String, Object>();
+        params.put('EmpID',currentUser[0].Employee_ID__c);
+		params.put('EmpName',currentUser[0].Name);
+        params.put('EmpEmail',currentUser[0].Email__c);
+        params.put('OTP',randomNew);
+		Flow.Interview.OTPSenderFlow calcFlow = new Flow.Interview.OTPSenderFlow(params);
+		calcFlow.start();
+ 
+// Obtain the results
+		
+        
+
+} 
+@AuraEnabled
+public static void clearOTP(String empID){
+    try {
+        List<Employee__c> currentUser=[Select Id,Employee_ID__c,OTP__c from Employee__c where Employee_ID__c=:empID ];
+        currentUser[0].OTP__c = '';
+        update currentUser[0];
+        
+    } catch (Exception e) {
+        throw new AuraHandledException(e.getMessage());
+    }
+}
+
+@AuraEnabled
+public static boolean checkOTP(String empID,String pwd){
+    try {
+        List<Employee__c> currentUser=[Select Id,Employee_ID__c,OTP__c from Employee__c where Employee_ID__c=:empID ];
+        if(currentUser[0].OTP__c == pwd){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    } catch (Exception e) {
+        throw new AuraHandledException(e.getMessage());
+    }
+}
 }
